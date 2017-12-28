@@ -1,0 +1,6 @@
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\bin\Debug\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\bin\Debug\DispatchCore.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Debug\DispatchCore.csprojResolveAssemblyReference.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Debug\DispatchCore.csproj.CoreCompileInputs.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Debug\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Debug\DispatchCore.pdb

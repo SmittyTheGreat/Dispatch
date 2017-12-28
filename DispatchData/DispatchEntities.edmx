@@ -1,0 +1,1903 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DispatchModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brokers">
+          <Key>
+            <PropertyRef Name="BrokerId" />
+          </Key>
+          <Property Name="BrokerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="HomeLocationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CustomerPhone" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Dispatchers">
+          <Key>
+            <PropertyRef Name="DispatcherId" />
+          </Key>
+          <Property Name="DispatcherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DispatcherHandle" Type="varchar" MaxLength="30" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="VendorId" Type="int" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverHandle" Type="varchar" MaxLength="30" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="OnDuty" Type="int" />
+          <Property Name="HomeLocationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="45" />
+          <Property Name="City" Type="varchar" MaxLength="45" />
+          <Property Name="State" Type="varchar" MaxLength="15" />
+          <Property Name="Zip" Type="varchar" MaxLength="5" />
+          <Property Name="Lat" Type="float" />
+          <Property Name="Lon" Type="float" />
+          <Property Name="IsPickup" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="VendorId" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="VendorId" Type="int" />
+          <Property Name="IsRecurring" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="PickupLocationId" Type="int" />
+          <Property Name="VendorId" Type="int" />
+          <Property Name="Notes" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="SegmentStatuses">
+          <Key>
+            <PropertyRef Name="SegmentStatusId" />
+          </Key>
+          <Property Name="SegmentStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="StandbySegments">
+          <Key>
+            <PropertyRef Name="StandbySegmentId" />
+          </Key>
+          <Property Name="StandbySegmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="AssignedVehicleId" Type="int" />
+          <Property Name="AssignedDriverId" Type="int" />
+          <Property Name="AssignedBrokerId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ScheduledStart" Type="datetime" Precision="0" />
+          <Property Name="ScheduledEnd" Type="datetime" Precision="0" />
+          <Property Name="ActualStart" Type="datetime" Precision="0" />
+          <Property Name="ActualEnd" Type="datetime" Precision="0" />
+          <Property Name="OrderIndex" Type="int" />
+          <Property Name="StandbyLocationId" Type="int" />
+          <Property Name="SegmentStatusId" Type="int" />
+          <Property Name="StatusChangeAckDriver" Type="int" />
+          <Property Name="StatusChangeAckDispatch" Type="int" />
+          <Property Name="StatusChangeAckVendor" Type="int" />
+          <Property Name="StatusChangeAckCustomer" Type="int" />
+          <Property Name="StatusChangeAckBroker" Type="int" />
+        </EntityType>
+        <EntityType Name="TravelSegments">
+          <Key>
+            <PropertyRef Name="TravelSegmentId" />
+          </Key>
+          <Property Name="TravelSegmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="AssignedVehicleId" Type="int" />
+          <Property Name="AssignedDriverId" Type="int" />
+          <Property Name="AssignedBrokerId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ScheduledStart" Type="datetime" Precision="0" />
+          <Property Name="ScheduledEnd" Type="datetime" Precision="0" />
+          <Property Name="ActualStart" Type="datetime" Precision="0" />
+          <Property Name="ActualEnd" Type="datetime" Precision="0" />
+          <Property Name="OrderIndex" Type="int" />
+          <Property Name="SegmentStatusId" Type="int" />
+          <Property Name="StatusChangeAckDriver" Type="int" />
+          <Property Name="StatusChangeAckDispatch" Type="int" />
+          <Property Name="StatusChangeAckVendor" Type="int" />
+          <Property Name="StatusChangeAckCustomer" Type="int" />
+          <Property Name="StatusChangeAckBroker" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" />
+          <Property Name="HumanName" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="45" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="VendorId" Type="int" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="DispatcherId" Type="int" />
+          <Property Name="LastLogin" Type="datetime" Precision="0" />
+          <Property Name="Device" Type="varchar" MaxLength="45" />
+          <Property Name="Version" Type="varchar" MaxLength="15" />
+          <Property Name="CurrentLat" Type="float" />
+          <Property Name="CurrentLon" Type="float" />
+          <Property Name="LastLocationTime" Type="float" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleNumber" Type="varchar" MaxLength="15" />
+          <Property Name="VehicleTypeId" Type="int" />
+          <Property Name="StartingMileage" Type="int" />
+          <Property Name="CurrentMileage" Type="int" />
+          <Property Name="HomeLocationId" Type="int" />
+          <Property Name="VehicleStatusId" Type="int" />
+          <Property Name="CurrentDriverId" Type="int" />
+          <Property Name="BrokerOwnerId" Type="int" />
+          <Property Name="VendorOwnerId" Type="int" />
+          <Property Name="CustomerOwnerId" Type="int" />
+          <Property Name="DriverOwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="VehicleStatuses">
+          <Key>
+            <PropertyRef Name="VehicleStatusId" />
+          </Key>
+          <Property Name="VehicleStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="VehicleTypes">
+          <Key>
+            <PropertyRef Name="VehicleTypeId" />
+          </Key>
+          <Property Name="VehicleTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="HomeLocationId" Type="int" />
+        </EntityType>
+        <Association Name="BrokerHomeLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Brokers">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatchBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Dispatchers">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatchCustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Dispatchers">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatcherVendorId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Dispatchers">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverHomeLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderCustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderVendorId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductPickupLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="PickupLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductVendorId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="AssignedBrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentDriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="AssignedDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentOrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentProductId">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentSegmentStatusId">
+          <End Role="SegmentStatuses" Type="Self.SegmentStatuses" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentStatuses">
+              <PropertyRef Name="SegmentStatusId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="SegmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentVehicleId">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="AssignedVehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbyLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="StandbyLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="AssignedBrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentDriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="AssignedDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentOrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentProductId">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentSegmentStatusId">
+          <End Role="SegmentStatuses" Type="Self.SegmentStatuses" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentStatuses">
+              <PropertyRef Name="SegmentStatusId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="SegmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentVehicleId">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="AssignedVehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserCustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDispatcherId">
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatchers">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="DispatcherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserVendorId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleBrokerOwnerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="BrokerOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleCurrentDriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="CurrentDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleCustomerOwnerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="CustomerOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleDriverOwnerId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="DriverOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleHomeLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVehicleStatusId">
+          <End Role="VehicleStatuses" Type="Self.VehicleStatuses" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleStatuses">
+              <PropertyRef Name="VehicleStatusId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVehicleTypeId">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="VehicleTypeId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVendorOwnerId">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VendorOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VendorHomeLocationId">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Vendors">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DispatchModelStoreContainer">
+          <EntitySet Name="Brokers" EntityType="Self.Brokers" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Dispatchers" EntityType="Self.Dispatchers" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="SegmentStatuses" EntityType="Self.SegmentStatuses" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="StandbySegments" EntityType="Self.StandbySegments" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="TravelSegments" EntityType="Self.TravelSegments" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="VehicleStatuses" EntityType="Self.VehicleStatuses" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dispatch" store:Type="Tables" />
+          <AssociationSet Name="BrokerHomeLocationId" Association="Self.BrokerHomeLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Brokers" EntitySet="Brokers" />
+          </AssociationSet>
+          <AssociationSet Name="DispatchBrokerId" Association="Self.DispatchBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="DispatchCustomerId" Association="Self.DispatchCustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="DispatcherVendorId" Association="Self.DispatcherVendorId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="DriverBrokerId" Association="Self.DriverBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="DriverHomeLocationId" Association="Self.DriverHomeLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="OrderCustomerId" Association="Self.OrderCustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="OrderVendorId" Association="Self.OrderVendorId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="ProductPickupLocationId" Association="Self.ProductPickupLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="ProductVendorId" Association="Self.ProductVendorId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentBrokerId" Association="Self.SegmentBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentDriverId" Association="Self.SegmentDriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentOrderId" Association="Self.SegmentOrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentProductId" Association="Self.SegmentProductId">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentSegmentStatusId" Association="Self.SegmentSegmentStatusId">
+            <End Role="SegmentStatuses" EntitySet="SegmentStatuses" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentVehicleId" Association="Self.SegmentVehicleId">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbyLocationId" Association="Self.StandbyLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentBrokerId" Association="Self.StandbySegmentBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentDriverId" Association="Self.StandbySegmentDriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentOrderId" Association="Self.StandbySegmentOrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentProductId" Association="Self.StandbySegmentProductId">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentSegmentStatusId" Association="Self.StandbySegmentSegmentStatusId">
+            <End Role="SegmentStatuses" EntitySet="SegmentStatuses" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentVehicleId" Association="Self.StandbySegmentVehicleId">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="UserBrokerId" Association="Self.UserBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserCustomerId" Association="Self.UserCustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserDispatcherId" Association="Self.UserDispatcherId">
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserDriverId" Association="Self.UserDriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserVendorId" Association="Self.UserVendorId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleBrokerOwnerId" Association="Self.VehicleBrokerOwnerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleCurrentDriverId" Association="Self.VehicleCurrentDriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleCustomerOwnerId" Association="Self.VehicleCustomerOwnerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleDriverOwnerId" Association="Self.VehicleDriverOwnerId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleHomeLocationId" Association="Self.VehicleHomeLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVehicleStatusId" Association="Self.VehicleVehicleStatusId">
+            <End Role="VehicleStatuses" EntitySet="VehicleStatuses" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVehicleTypeId" Association="Self.VehicleVehicleTypeId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVendorOwnerId" Association="Self.VehicleVendorOwnerId">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VendorHomeLocationId" Association="Self.VendorHomeLocationId">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Vendors" EntitySet="Vendors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DispatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DispatchEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brokers" EntityType="DispatchModel.Broker" />
+          <EntitySet Name="Customers" EntityType="DispatchModel.Customer" />
+          <EntitySet Name="Dispatchers" EntityType="DispatchModel.Dispatcher" />
+          <EntitySet Name="Drivers" EntityType="DispatchModel.Driver" />
+          <EntitySet Name="Locations" EntityType="DispatchModel.Location" />
+          <EntitySet Name="Orders" EntityType="DispatchModel.Order" />
+          <EntitySet Name="Products" EntityType="DispatchModel.Product" />
+          <EntitySet Name="SegmentStatuses" EntityType="DispatchModel.SegmentStatus" />
+          <EntitySet Name="StandbySegments" EntityType="DispatchModel.StandbySegment" />
+          <EntitySet Name="TravelSegments" EntityType="DispatchModel.TravelSegment" />
+          <EntitySet Name="Users" EntityType="DispatchModel.User" />
+          <EntitySet Name="Vehicles" EntityType="DispatchModel.Vehicle" />
+          <EntitySet Name="VehicleStatuses" EntityType="DispatchModel.VehicleStatus" />
+          <EntitySet Name="VehicleTypes" EntityType="DispatchModel.VehicleType" />
+          <EntitySet Name="Vendors" EntityType="DispatchModel.Vendor" />
+          <AssociationSet Name="BrokerHomeLocationId" Association="DispatchModel.BrokerHomeLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Broker" EntitySet="Brokers" />
+          </AssociationSet>
+          <AssociationSet Name="DispatchBrokerId" Association="DispatchModel.DispatchBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="DriverBrokerId" Association="DispatchModel.DriverBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentBrokerId" Association="DispatchModel.SegmentBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentBrokerId" Association="DispatchModel.StandbySegmentBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="UserBrokerId" Association="DispatchModel.UserBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleBrokerOwnerId" Association="DispatchModel.VehicleBrokerOwnerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="DispatchCustomerId" Association="DispatchModel.DispatchCustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="OrderCustomerId" Association="DispatchModel.OrderCustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="UserCustomerId" Association="DispatchModel.UserCustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleCustomerOwnerId" Association="DispatchModel.VehicleCustomerOwnerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="DispatcherVendorId" Association="DispatchModel.DispatcherVendorId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+          </AssociationSet>
+          <AssociationSet Name="UserDispatcherId" Association="DispatchModel.UserDispatcherId">
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="DriverHomeLocationId" Association="DispatchModel.DriverHomeLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentDriverId" Association="DispatchModel.SegmentDriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentDriverId" Association="DispatchModel.StandbySegmentDriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="UserDriverId" Association="DispatchModel.UserDriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleCurrentDriverId" Association="DispatchModel.VehicleCurrentDriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleDriverOwnerId" Association="DispatchModel.VehicleDriverOwnerId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="ProductPickupLocationId" Association="DispatchModel.ProductPickupLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="StandbyLocationId" Association="DispatchModel.StandbyLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleHomeLocationId" Association="DispatchModel.VehicleHomeLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VendorHomeLocationId" Association="DispatchModel.VendorHomeLocationId">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Vendor" EntitySet="Vendors" />
+          </AssociationSet>
+          <AssociationSet Name="OrderVendorId" Association="DispatchModel.OrderVendorId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentOrderId" Association="DispatchModel.SegmentOrderId">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentOrderId" Association="DispatchModel.StandbySegmentOrderId">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="ProductVendorId" Association="DispatchModel.ProductVendorId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentProductId" Association="DispatchModel.SegmentProductId">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentProductId" Association="DispatchModel.StandbySegmentProductId">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentSegmentStatusId" Association="DispatchModel.SegmentSegmentStatusId">
+            <End Role="SegmentStatus" EntitySet="SegmentStatuses" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentSegmentStatusId" Association="DispatchModel.StandbySegmentSegmentStatusId">
+            <End Role="SegmentStatus" EntitySet="SegmentStatuses" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentVehicleId" Association="DispatchModel.StandbySegmentVehicleId">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentVehicleId" Association="DispatchModel.SegmentVehicleId">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="UserVendorId" Association="DispatchModel.UserVendorId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVehicleStatusId" Association="DispatchModel.VehicleVehicleStatusId">
+            <End Role="VehicleStatus" EntitySet="VehicleStatuses" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVehicleTypeId" Association="DispatchModel.VehicleVehicleTypeId">
+            <End Role="VehicleType" EntitySet="VehicleTypes" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleVendorOwnerId" Association="DispatchModel.VehicleVendorOwnerId">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Broker">
+          <Key>
+            <PropertyRef Name="BrokerId" />
+          </Key>
+          <Property Name="BrokerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HomeLocationId" Type="Int32" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.BrokerHomeLocationId" FromRole="Broker" ToRole="Location" />
+          <NavigationProperty Name="Dispatchers" Relationship="DispatchModel.DispatchBrokerId" FromRole="Broker" ToRole="Dispatcher" />
+          <NavigationProperty Name="Drivers" Relationship="DispatchModel.DriverBrokerId" FromRole="Broker" ToRole="Driver" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentBrokerId" FromRole="Broker" ToRole="TravelSegment" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentBrokerId" FromRole="Broker" ToRole="StandbySegment" />
+          <NavigationProperty Name="Users" Relationship="DispatchModel.UserBrokerId" FromRole="Broker" ToRole="User" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleBrokerOwnerId" FromRole="Broker" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Dispatchers" Relationship="DispatchModel.DispatchCustomerId" FromRole="Customer" ToRole="Dispatcher" />
+          <NavigationProperty Name="Orders" Relationship="DispatchModel.OrderCustomerId" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="Users" Relationship="DispatchModel.UserCustomerId" FromRole="Customer" ToRole="User" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleCustomerOwnerId" FromRole="Customer" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Dispatcher">
+          <Key>
+            <PropertyRef Name="DispatcherId" />
+          </Key>
+          <Property Name="DispatcherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DispatcherHandle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="VendorId" Type="Int32" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.DispatchBrokerId" FromRole="Dispatcher" ToRole="Broker" />
+          <NavigationProperty Name="Customer" Relationship="DispatchModel.DispatchCustomerId" FromRole="Dispatcher" ToRole="Customer" />
+          <NavigationProperty Name="Vendor" Relationship="DispatchModel.DispatcherVendorId" FromRole="Dispatcher" ToRole="Vendor" />
+          <NavigationProperty Name="Users" Relationship="DispatchModel.UserDispatcherId" FromRole="Dispatcher" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverHandle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="OnDuty" Type="Int32" />
+          <Property Name="HomeLocationId" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.DriverBrokerId" FromRole="Driver" ToRole="Broker" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.DriverHomeLocationId" FromRole="Driver" ToRole="Location" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentDriverId" FromRole="Driver" ToRole="TravelSegment" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentDriverId" FromRole="Driver" ToRole="StandbySegment" />
+          <NavigationProperty Name="Users" Relationship="DispatchModel.UserDriverId" FromRole="Driver" ToRole="User" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleCurrentDriverId" FromRole="Driver" ToRole="Vehicle" />
+          <NavigationProperty Name="Vehicles1" Relationship="DispatchModel.VehicleDriverOwnerId" FromRole="Driver" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Lat" Type="Single" />
+          <Property Name="Lon" Type="Single" />
+          <Property Name="IsPickup" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="VendorId" Type="Int32" />
+          <NavigationProperty Name="Brokers" Relationship="DispatchModel.BrokerHomeLocationId" FromRole="Location" ToRole="Broker" />
+          <NavigationProperty Name="Drivers" Relationship="DispatchModel.DriverHomeLocationId" FromRole="Location" ToRole="Driver" />
+          <NavigationProperty Name="Products" Relationship="DispatchModel.ProductPickupLocationId" FromRole="Location" ToRole="Product" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbyLocationId" FromRole="Location" ToRole="StandbySegment" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleHomeLocationId" FromRole="Location" ToRole="Vehicle" />
+          <NavigationProperty Name="Vendors" Relationship="DispatchModel.VendorHomeLocationId" FromRole="Location" ToRole="Vendor" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="VendorId" Type="Int32" />
+          <Property Name="IsRecurring" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="DispatchModel.OrderCustomerId" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Vendor" Relationship="DispatchModel.OrderVendorId" FromRole="Order" ToRole="Vendor" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentOrderId" FromRole="Order" ToRole="TravelSegment" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentOrderId" FromRole="Order" ToRole="StandbySegment" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PickupLocationId" Type="Int32" />
+          <Property Name="VendorId" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.ProductPickupLocationId" FromRole="Product" ToRole="Location" />
+          <NavigationProperty Name="Vendor" Relationship="DispatchModel.ProductVendorId" FromRole="Product" ToRole="Vendor" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentProductId" FromRole="Product" ToRole="TravelSegment" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentProductId" FromRole="Product" ToRole="StandbySegment" />
+        </EntityType>
+        <EntityType Name="SegmentStatus">
+          <Key>
+            <PropertyRef Name="SegmentStatusId" />
+          </Key>
+          <Property Name="SegmentStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentSegmentStatusId" FromRole="SegmentStatus" ToRole="TravelSegment" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentSegmentStatusId" FromRole="SegmentStatus" ToRole="StandbySegment" />
+        </EntityType>
+        <EntityType Name="StandbySegment">
+          <Key>
+            <PropertyRef Name="StandbySegmentId" />
+          </Key>
+          <Property Name="StandbySegmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="AssignedVehicleId" Type="Int32" />
+          <Property Name="AssignedDriverId" Type="Int32" />
+          <Property Name="AssignedBrokerId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ScheduledStart" Type="DateTime" />
+          <Property Name="ScheduledEnd" Type="DateTime" />
+          <Property Name="ActualStart" Type="DateTime" />
+          <Property Name="ActualEnd" Type="DateTime" />
+          <Property Name="OrderIndex" Type="Int32" />
+          <Property Name="StandbyLocationId" Type="Int32" />
+          <Property Name="SegmentStatusId" Type="Int32" />
+          <Property Name="StatusChangeAckDriver" Type="Int32" />
+          <Property Name="StatusChangeAckDispatch" Type="Int32" />
+          <Property Name="StatusChangeAckVendor" Type="Int32" />
+          <Property Name="StatusChangeAckCustomer" Type="Int32" />
+          <Property Name="StatusChangeAckBroker" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.StandbySegmentBrokerId" FromRole="StandbySegment" ToRole="Broker" />
+          <NavigationProperty Name="Driver" Relationship="DispatchModel.StandbySegmentDriverId" FromRole="StandbySegment" ToRole="Driver" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.StandbyLocationId" FromRole="StandbySegment" ToRole="Location" />
+          <NavigationProperty Name="Order" Relationship="DispatchModel.StandbySegmentOrderId" FromRole="StandbySegment" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="DispatchModel.StandbySegmentProductId" FromRole="StandbySegment" ToRole="Product" />
+          <NavigationProperty Name="SegmentStatus" Relationship="DispatchModel.StandbySegmentSegmentStatusId" FromRole="StandbySegment" ToRole="SegmentStatus" />
+          <NavigationProperty Name="Vehicle" Relationship="DispatchModel.StandbySegmentVehicleId" FromRole="StandbySegment" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="TravelSegment">
+          <Key>
+            <PropertyRef Name="TravelSegmentId" />
+          </Key>
+          <Property Name="TravelSegmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="AssignedVehicleId" Type="Int32" />
+          <Property Name="AssignedDriverId" Type="Int32" />
+          <Property Name="AssignedBrokerId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ScheduledStart" Type="DateTime" />
+          <Property Name="ScheduledEnd" Type="DateTime" />
+          <Property Name="ActualStart" Type="DateTime" />
+          <Property Name="ActualEnd" Type="DateTime" />
+          <Property Name="OrderIndex" Type="Int32" />
+          <Property Name="SegmentStatusId" Type="Int32" />
+          <Property Name="StatusChangeAckDriver" Type="Int32" />
+          <Property Name="StatusChangeAckDispatch" Type="Int32" />
+          <Property Name="StatusChangeAckVendor" Type="Int32" />
+          <Property Name="StatusChangeAckCustomer" Type="Int32" />
+          <Property Name="StatusChangeAckBroker" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.SegmentBrokerId" FromRole="TravelSegment" ToRole="Broker" />
+          <NavigationProperty Name="Driver" Relationship="DispatchModel.SegmentDriverId" FromRole="TravelSegment" ToRole="Driver" />
+          <NavigationProperty Name="Order" Relationship="DispatchModel.SegmentOrderId" FromRole="TravelSegment" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="DispatchModel.SegmentProductId" FromRole="TravelSegment" ToRole="Product" />
+          <NavigationProperty Name="SegmentStatus" Relationship="DispatchModel.SegmentSegmentStatusId" FromRole="TravelSegment" ToRole="SegmentStatus" />
+          <NavigationProperty Name="Vehicle" Relationship="DispatchModel.SegmentVehicleId" FromRole="TravelSegment" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HumanName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="VendorId" Type="Int32" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="DispatcherId" Type="Int32" />
+          <Property Name="LastLogin" Type="DateTime" />
+          <Property Name="Device" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentLat" Type="Single" />
+          <Property Name="CurrentLon" Type="Single" />
+          <Property Name="LastLocationTime" Type="Single" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.UserBrokerId" FromRole="User" ToRole="Broker" />
+          <NavigationProperty Name="Customer" Relationship="DispatchModel.UserCustomerId" FromRole="User" ToRole="Customer" />
+          <NavigationProperty Name="Dispatcher" Relationship="DispatchModel.UserDispatcherId" FromRole="User" ToRole="Dispatcher" />
+          <NavigationProperty Name="Driver" Relationship="DispatchModel.UserDriverId" FromRole="User" ToRole="Driver" />
+          <NavigationProperty Name="Vendor" Relationship="DispatchModel.UserVendorId" FromRole="User" ToRole="Vendor" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleTypeId" Type="Int32" />
+          <Property Name="StartingMileage" Type="Int32" />
+          <Property Name="CurrentMileage" Type="Int32" />
+          <Property Name="HomeLocationId" Type="Int32" />
+          <Property Name="VehicleStatusId" Type="Int32" />
+          <Property Name="CurrentDriverId" Type="Int32" />
+          <Property Name="BrokerOwnerId" Type="Int32" />
+          <Property Name="VendorOwnerId" Type="Int32" />
+          <Property Name="CustomerOwnerId" Type="Int32" />
+          <Property Name="DriverOwnerId" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="DispatchModel.VehicleBrokerOwnerId" FromRole="Vehicle" ToRole="Broker" />
+          <NavigationProperty Name="Customer" Relationship="DispatchModel.VehicleCustomerOwnerId" FromRole="Vehicle" ToRole="Customer" />
+          <NavigationProperty Name="Driver" Relationship="DispatchModel.VehicleCurrentDriverId" FromRole="Vehicle" ToRole="Driver" />
+          <NavigationProperty Name="Driver1" Relationship="DispatchModel.VehicleDriverOwnerId" FromRole="Vehicle" ToRole="Driver" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.VehicleHomeLocationId" FromRole="Vehicle" ToRole="Location" />
+          <NavigationProperty Name="StandbySegments" Relationship="DispatchModel.StandbySegmentVehicleId" FromRole="Vehicle" ToRole="StandbySegment" />
+          <NavigationProperty Name="TravelSegments" Relationship="DispatchModel.SegmentVehicleId" FromRole="Vehicle" ToRole="TravelSegment" />
+          <NavigationProperty Name="VehicleStatus" Relationship="DispatchModel.VehicleVehicleStatusId" FromRole="Vehicle" ToRole="VehicleStatus" />
+          <NavigationProperty Name="VehicleType" Relationship="DispatchModel.VehicleVehicleTypeId" FromRole="Vehicle" ToRole="VehicleType" />
+          <NavigationProperty Name="Vendor" Relationship="DispatchModel.VehicleVendorOwnerId" FromRole="Vehicle" ToRole="Vendor" />
+        </EntityType>
+        <EntityType Name="VehicleStatus">
+          <Key>
+            <PropertyRef Name="VehicleStatusId" />
+          </Key>
+          <Property Name="VehicleStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleVehicleStatusId" FromRole="VehicleStatus" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="VehicleTypeId" />
+          </Key>
+          <Property Name="VehicleTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleVehicleTypeId" FromRole="VehicleType" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="HomeLocationId" Type="Int32" />
+          <NavigationProperty Name="Dispatchers" Relationship="DispatchModel.DispatcherVendorId" FromRole="Vendor" ToRole="Dispatcher" />
+          <NavigationProperty Name="Location" Relationship="DispatchModel.VendorHomeLocationId" FromRole="Vendor" ToRole="Location" />
+          <NavigationProperty Name="Orders" Relationship="DispatchModel.OrderVendorId" FromRole="Vendor" ToRole="Order" />
+          <NavigationProperty Name="Products" Relationship="DispatchModel.ProductVendorId" FromRole="Vendor" ToRole="Product" />
+          <NavigationProperty Name="Users" Relationship="DispatchModel.UserVendorId" FromRole="Vendor" ToRole="User" />
+          <NavigationProperty Name="Vehicles" Relationship="DispatchModel.VehicleVendorOwnerId" FromRole="Vendor" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="BrokerHomeLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Broker">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatchBrokerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Dispatcher">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverBrokerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentBrokerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="AssignedBrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentBrokerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="AssignedBrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserBrokerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleBrokerOwnerId">
+          <End Type="DispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="BrokerOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatchCustomerId">
+          <End Type="DispatchModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="DispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Dispatcher">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderCustomerId">
+          <End Type="DispatchModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="DispatchModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserCustomerId">
+          <End Type="DispatchModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="DispatchModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleCustomerOwnerId">
+          <End Type="DispatchModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="CustomerOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DispatcherVendorId">
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="DispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Dispatcher">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDispatcherId">
+          <End Type="DispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="0..1" />
+          <End Type="DispatchModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatcher">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="DispatcherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverHomeLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentDriverId">
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="AssignedDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentDriverId">
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="AssignedDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDriverId">
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="DispatchModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleCurrentDriverId">
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="CurrentDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleDriverOwnerId">
+          <End Type="DispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="DriverOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductPickupLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="PickupLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbyLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="StandbyLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleHomeLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VendorHomeLocationId">
+          <End Type="DispatchModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Vendor">
+              <PropertyRef Name="HomeLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderVendorId">
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="DispatchModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentOrderId">
+          <End Type="DispatchModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentOrderId">
+          <End Type="DispatchModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductVendorId">
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="DispatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentProductId">
+          <End Type="DispatchModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentProductId">
+          <End Type="DispatchModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentSegmentStatusId">
+          <End Type="DispatchModel.SegmentStatus" Role="SegmentStatus" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentStatus">
+              <PropertyRef Name="SegmentStatusId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="SegmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentSegmentStatusId">
+          <End Type="DispatchModel.SegmentStatus" Role="SegmentStatus" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentStatus">
+              <PropertyRef Name="SegmentStatusId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="SegmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentVehicleId">
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="DispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="AssignedVehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentVehicleId">
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="DispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="AssignedVehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserVendorId">
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="DispatchModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVehicleStatusId">
+          <End Type="DispatchModel.VehicleStatus" Role="VehicleStatus" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleStatus">
+              <PropertyRef Name="VehicleStatusId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="VehicleStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVehicleTypeId">
+          <End Type="DispatchModel.VehicleType" Role="VehicleType" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleType">
+              <PropertyRef Name="VehicleTypeId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleVendorOwnerId">
+          <End Type="DispatchModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="DispatchModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="VendorOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DispatchModelStoreContainer" CdmEntityContainer="DispatchEntities">
+          <EntitySetMapping Name="Brokers">
+            <EntityTypeMapping TypeName="DispatchModel.Broker">
+              <MappingFragment StoreEntitySet="Brokers">
+                <ScalarProperty Name="HomeLocationId" ColumnName="HomeLocationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="DispatchModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dispatchers">
+            <EntityTypeMapping TypeName="DispatchModel.Dispatcher">
+              <MappingFragment StoreEntitySet="Dispatchers">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DispatcherHandle" ColumnName="DispatcherHandle" />
+                <ScalarProperty Name="DispatcherId" ColumnName="DispatcherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="DispatchModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="HomeLocationId" ColumnName="HomeLocationId" />
+                <ScalarProperty Name="OnDuty" ColumnName="OnDuty" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DriverHandle" ColumnName="DriverHandle" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="DispatchModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="IsPickup" ColumnName="IsPickup" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DispatchModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DispatchModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="PickupLocationId" ColumnName="PickupLocationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SegmentStatuses">
+            <EntityTypeMapping TypeName="DispatchModel.SegmentStatus">
+              <MappingFragment StoreEntitySet="SegmentStatuses">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SegmentStatusId" ColumnName="SegmentStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StandbySegments">
+            <EntityTypeMapping TypeName="DispatchModel.StandbySegment">
+              <MappingFragment StoreEntitySet="StandbySegments">
+                <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
+                <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
+                <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
+                <ScalarProperty Name="StatusChangeAckDispatch" ColumnName="StatusChangeAckDispatch" />
+                <ScalarProperty Name="StatusChangeAckDriver" ColumnName="StatusChangeAckDriver" />
+                <ScalarProperty Name="SegmentStatusId" ColumnName="SegmentStatusId" />
+                <ScalarProperty Name="StandbyLocationId" ColumnName="StandbyLocationId" />
+                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
+                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
+                <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="AssignedBrokerId" ColumnName="AssignedBrokerId" />
+                <ScalarProperty Name="AssignedDriverId" ColumnName="AssignedDriverId" />
+                <ScalarProperty Name="AssignedVehicleId" ColumnName="AssignedVehicleId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="StandbySegmentId" ColumnName="StandbySegmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelSegments">
+            <EntityTypeMapping TypeName="DispatchModel.TravelSegment">
+              <MappingFragment StoreEntitySet="TravelSegments">
+                <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
+                <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
+                <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
+                <ScalarProperty Name="StatusChangeAckDispatch" ColumnName="StatusChangeAckDispatch" />
+                <ScalarProperty Name="StatusChangeAckDriver" ColumnName="StatusChangeAckDriver" />
+                <ScalarProperty Name="SegmentStatusId" ColumnName="SegmentStatusId" />
+                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
+                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
+                <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="AssignedBrokerId" ColumnName="AssignedBrokerId" />
+                <ScalarProperty Name="AssignedDriverId" ColumnName="AssignedDriverId" />
+                <ScalarProperty Name="AssignedVehicleId" ColumnName="AssignedVehicleId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="TravelSegmentId" ColumnName="TravelSegmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DispatchModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastLocationTime" ColumnName="LastLocationTime" />
+                <ScalarProperty Name="CurrentLon" ColumnName="CurrentLon" />
+                <ScalarProperty Name="CurrentLat" ColumnName="CurrentLat" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Device" ColumnName="Device" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="DispatcherId" ColumnName="DispatcherId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HumanName" ColumnName="HumanName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="DispatchModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="DriverOwnerId" ColumnName="DriverOwnerId" />
+                <ScalarProperty Name="CustomerOwnerId" ColumnName="CustomerOwnerId" />
+                <ScalarProperty Name="VendorOwnerId" ColumnName="VendorOwnerId" />
+                <ScalarProperty Name="BrokerOwnerId" ColumnName="BrokerOwnerId" />
+                <ScalarProperty Name="CurrentDriverId" ColumnName="CurrentDriverId" />
+                <ScalarProperty Name="VehicleStatusId" ColumnName="VehicleStatusId" />
+                <ScalarProperty Name="HomeLocationId" ColumnName="HomeLocationId" />
+                <ScalarProperty Name="CurrentMileage" ColumnName="CurrentMileage" />
+                <ScalarProperty Name="StartingMileage" ColumnName="StartingMileage" />
+                <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleStatuses">
+            <EntityTypeMapping TypeName="DispatchModel.VehicleStatus">
+              <MappingFragment StoreEntitySet="VehicleStatuses">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VehicleStatusId" ColumnName="VehicleStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleTypes">
+            <EntityTypeMapping TypeName="DispatchModel.VehicleType">
+              <MappingFragment StoreEntitySet="VehicleTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="DispatchModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="HomeLocationId" ColumnName="HomeLocationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
