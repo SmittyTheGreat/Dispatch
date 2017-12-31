@@ -9,3 +9,7 @@ C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Debug\DispatchDa
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Debug\DispatchData.pdb
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\DispatchCore.dll
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\DispatchCore.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\MySql.Data.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Debug\EntityFramework.SqlServer.xml

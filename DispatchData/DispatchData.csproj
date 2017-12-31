@@ -30,15 +30,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.10\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.10\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +68,7 @@
     <Compile Include="Broker.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="BrokerRepository.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
@@ -74,23 +93,21 @@
     <Compile Include="Driver.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DriverRepository.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="LocationRepository.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdersRepository.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\BrokerRepository.cs" />
-    <Compile Include="Repositories\DriverRepository.cs" />
-    <Compile Include="Repositories\LocationRepository.cs" />
-    <Compile Include="Repositories\OrdersRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Repositories\SegmentRespository.cs" />
-    <Compile Include="Repositories\VehicleRepository.cs" />
+    <Compile Include="SegmentRespository.cs" />
     <Compile Include="SegmentStatus.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
@@ -106,6 +123,7 @@
     <Compile Include="Vehicle.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="VehicleRepository.cs" />
     <Compile Include="VehicleStatus.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
@@ -117,29 +135,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="DispatchEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DispatchEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="DispatchEntities.edmx.diagram">
       <DependentUpon>DispatchEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DispatchEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DispatchEntities.Context.cs</LastGenOutput>
-      <DependentUpon>DispatchEntities.edmx</DependentUpon>
-    </Content>
-    <Content Include="DispatchEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DispatchEntities.edmx</DependentUpon>
-      <LastGenOutput>DispatchEntities.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -149,6 +155,18 @@
       <Project>{246ea183-6d45-4f0a-ac04-1192cd66431e}</Project>
       <Name>DispatchCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DispatchEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DispatchEntities.edmx</DependentUpon>
+      <LastGenOutput>DispatchEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DispatchEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DispatchEntities.edmx</DependentUpon>
+      <LastGenOutput>DispatchEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

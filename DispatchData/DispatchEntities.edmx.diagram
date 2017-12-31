@@ -4,59 +4,59 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7fefd7f15bdd42878ba9649c9d987811" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="DispatchModel.Broker" Width="1.5" PointX="3" PointY="14.5" />
-        <EntityTypeShape EntityType="DispatchModel.Customer" Width="1.5" PointX="8.25" PointY="8.875" />
-        <EntityTypeShape EntityType="DispatchModel.Dispatcher" Width="1.5" PointX="5.25" PointY="20" />
-        <EntityTypeShape EntityType="DispatchModel.Driver" Width="1.5" PointX="5.25" PointY="15.375" />
-        <EntityTypeShape EntityType="DispatchModel.Location" Width="1.5" PointX="0.75" PointY="15.5" />
-        <EntityTypeShape EntityType="DispatchModel.Order" Width="1.5" PointX="5.25" PointY="23.625" />
-        <EntityTypeShape EntityType="DispatchModel.Product" Width="1.5" PointX="8.25" PointY="18.625" />
-        <EntityTypeShape EntityType="DispatchModel.SegmentStatus" Width="1.5" PointX="13.5" PointY="14.5" />
-        <EntityTypeShape EntityType="DispatchModel.StandbySegment" Width="1.5" PointX="12.75" PointY="17.5" />
-        <EntityTypeShape EntityType="DispatchModel.TravelSegment" Width="1.5" PointX="15.75" PointY="17.75" />
-        <EntityTypeShape EntityType="DispatchModel.User" Width="1.5" PointX="7.5" PointY="13" />
-        <EntityTypeShape EntityType="DispatchModel.Vehicle" Width="1.5" PointX="10.5" PointY="16.75" />
-        <EntityTypeShape EntityType="DispatchModel.VehicleStatus" Width="1.5" PointX="8.25" PointY="25.375" />
-        <EntityTypeShape EntityType="DispatchModel.VehicleType" Width="1.5" PointX="8.25" PointY="23" />
-        <EntityTypeShape EntityType="DispatchModel.Vendor" Width="1.5" PointX="3" PointY="21.625" />
-        <AssociationConnector Association="DispatchModel.BrokerHomeLocationId" />
-        <AssociationConnector Association="DispatchModel.DispatchBrokerId" />
-        <AssociationConnector Association="DispatchModel.DriverBrokerId" />
-        <AssociationConnector Association="DispatchModel.SegmentBrokerId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentBrokerId" />
-        <AssociationConnector Association="DispatchModel.UserBrokerId" />
-        <AssociationConnector Association="DispatchModel.VehicleBrokerOwnerId" />
-        <AssociationConnector Association="DispatchModel.DispatchCustomerId" />
-        <AssociationConnector Association="DispatchModel.OrderCustomerId" />
-        <AssociationConnector Association="DispatchModel.UserCustomerId" />
-        <AssociationConnector Association="DispatchModel.VehicleCustomerOwnerId" />
-        <AssociationConnector Association="DispatchModel.DispatcherVendorId" />
-        <AssociationConnector Association="DispatchModel.UserDispatcherId" />
-        <AssociationConnector Association="DispatchModel.DriverHomeLocationId" />
-        <AssociationConnector Association="DispatchModel.SegmentDriverId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentDriverId" />
-        <AssociationConnector Association="DispatchModel.UserDriverId" />
-        <AssociationConnector Association="DispatchModel.VehicleCurrentDriverId" />
-        <AssociationConnector Association="DispatchModel.VehicleDriverOwnerId" />
-        <AssociationConnector Association="DispatchModel.ProductPickupLocationId" />
-        <AssociationConnector Association="DispatchModel.StandbyLocationId" />
-        <AssociationConnector Association="DispatchModel.VehicleHomeLocationId" />
-        <AssociationConnector Association="DispatchModel.VendorHomeLocationId" />
-        <AssociationConnector Association="DispatchModel.OrderVendorId" />
-        <AssociationConnector Association="DispatchModel.SegmentOrderId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentOrderId" />
-        <AssociationConnector Association="DispatchModel.ProductVendorId" />
-        <AssociationConnector Association="DispatchModel.SegmentProductId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentProductId" />
-        <AssociationConnector Association="DispatchModel.SegmentSegmentStatusId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentSegmentStatusId" />
-        <AssociationConnector Association="DispatchModel.StandbySegmentVehicleId" />
-        <AssociationConnector Association="DispatchModel.SegmentVehicleId" />
-        <AssociationConnector Association="DispatchModel.UserVendorId" />
-        <AssociationConnector Association="DispatchModel.VehicleVehicleStatusId" />
-        <AssociationConnector Association="DispatchModel.VehicleVehicleTypeId" />
-        <AssociationConnector Association="DispatchModel.VehicleVendorOwnerId" />
+      <Diagram DiagramId="048edb4696614b32928dce0403d28fe8" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="dispatchModel.Broker" Width="1.5" PointX="3" PointY="21.5" />
+        <EntityTypeShape EntityType="dispatchModel.Customer" Width="1.5" PointX="3" PointY="25.125" />
+        <EntityTypeShape EntityType="dispatchModel.Dispatcher" Width="1.5" PointX="8.25" PointY="19.75" />
+        <EntityTypeShape EntityType="dispatchModel.Driver" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="dispatchModel.Location" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="dispatchModel.Order" Width="1.5" PointX="5.25" PointY="21" />
+        <EntityTypeShape EntityType="dispatchModel.Product" Width="1.5" PointX="5.25" PointY="16.75" />
+        <EntityTypeShape EntityType="dispatchModel.SegmentStatus" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="dispatchModel.StandbySegment" Width="1.5" PointX="15.75" PointY="16.875" />
+        <EntityTypeShape EntityType="dispatchModel.TravelSegment" Width="1.5" PointX="10.5" PointY="17.125" />
+        <EntityTypeShape EntityType="dispatchModel.User" Width="1.5" PointX="10.5" PointY="23.375" />
+        <EntityTypeShape EntityType="dispatchModel.Vehicle" Width="1.5" PointX="13.5" PointY="17.125" />
+        <EntityTypeShape EntityType="dispatchModel.VehicleStatus" Width="1.5" PointX="11.25" PointY="11.125" />
+        <EntityTypeShape EntityType="dispatchModel.VehicleType" Width="1.5" PointX="11.25" PointY="13.875" />
+        <EntityTypeShape EntityType="dispatchModel.Vendor" Width="1.5" PointX="3" PointY="18" />
+        <AssociationConnector Association="dispatchModel.BrokerHomeLocationId" />
+        <AssociationConnector Association="dispatchModel.DispatchBrokerId" />
+        <AssociationConnector Association="dispatchModel.DriverBrokerId" />
+        <AssociationConnector Association="dispatchModel.SegmentBrokerId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentBrokerId" />
+        <AssociationConnector Association="dispatchModel.UserBrokerId" />
+        <AssociationConnector Association="dispatchModel.VehicleBrokerOwnerId" />
+        <AssociationConnector Association="dispatchModel.DispatchCustomerId" />
+        <AssociationConnector Association="dispatchModel.OrderCustomerId" />
+        <AssociationConnector Association="dispatchModel.UserCustomerId" />
+        <AssociationConnector Association="dispatchModel.VehicleCustomerOwnerId" />
+        <AssociationConnector Association="dispatchModel.DispatcherVendorId" />
+        <AssociationConnector Association="dispatchModel.UserDispatcherId" />
+        <AssociationConnector Association="dispatchModel.DriverHomeLocationId" />
+        <AssociationConnector Association="dispatchModel.SegmentDriverId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentDriverId" />
+        <AssociationConnector Association="dispatchModel.UserDriverId" />
+        <AssociationConnector Association="dispatchModel.VehicleCurrentDriverId" />
+        <AssociationConnector Association="dispatchModel.VehicleDriverOwnerId" />
+        <AssociationConnector Association="dispatchModel.ProductPickupLocationId" />
+        <AssociationConnector Association="dispatchModel.StandbyLocationId" />
+        <AssociationConnector Association="dispatchModel.VehicleHomeLocationId" />
+        <AssociationConnector Association="dispatchModel.VendorHomeLocationId" />
+        <AssociationConnector Association="dispatchModel.OrderVendorId" />
+        <AssociationConnector Association="dispatchModel.SegmentOrderId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentOrderId" />
+        <AssociationConnector Association="dispatchModel.ProductVendorId" />
+        <AssociationConnector Association="dispatchModel.SegmentProductId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentProductId" />
+        <AssociationConnector Association="dispatchModel.SegmentSegmentStatusId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentSegmentStatusId" />
+        <AssociationConnector Association="dispatchModel.StandbySegmentVehicleId" />
+        <AssociationConnector Association="dispatchModel.SegmentVehicleId" />
+        <AssociationConnector Association="dispatchModel.UserVendorId" />
+        <AssociationConnector Association="dispatchModel.VehicleVehicleStatusId" />
+        <AssociationConnector Association="dispatchModel.VehicleVehicleTypeId" />
+        <AssociationConnector Association="dispatchModel.VehicleVendorOwnerId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

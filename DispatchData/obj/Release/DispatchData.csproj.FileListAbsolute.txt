@@ -1,0 +1,11 @@
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\DispatchData.dll.config
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\DispatchData.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\DispatchData.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\EntityFramework.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\DispatchCore.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\bin\Release\EntityFramework.xml
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Release\DispatchData.csprojResolveAssemblyReference.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Release\DispatchData.csproj.CoreCompileInputs.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Release\DispatchData.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchData\obj\Release\DispatchData.pdb

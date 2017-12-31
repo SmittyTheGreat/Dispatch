@@ -1,0 +1,5 @@
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\bin\Release\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\bin\Release\DispatchCore.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Release\DispatchCore.csproj.CoreCompileInputs.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Release\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchCore\obj\Release\DispatchCore.pdb

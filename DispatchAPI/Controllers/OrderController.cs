@@ -6,10 +6,14 @@ using System.Net.Http;
 using System.Web.Http;
 using DispatchService;
 using DispatchCore.Models;
+using System.Web.Http.Cors;
+
 
 
 namespace DispatchAPI.Controllers
 {
+    [AllowAnonymous]
+   // [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class OrderController : ApiController
     {
         DispatchCore.Interfaces.IOrderService orderService;

@@ -11,3 +11,4 @@ C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Debug\Dispatc
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Debug\EntityFramework.xml
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Debug\DispatchService.dll
 C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Debug\DispatchService.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Debug\DispatchService.dll.config

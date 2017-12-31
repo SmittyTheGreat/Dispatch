@@ -1,0 +1,13 @@
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchService.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchService.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchCore.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchData.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\EntityFramework.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchCore.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchData.pdb
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\DispatchData.dll.config
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\bin\Release\EntityFramework.xml
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Release\DispatchService.csprojResolveAssemblyReference.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Release\DispatchService.csproj.CoreCompileInputs.cache
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Release\DispatchService.dll
+C:\Users\smitt\Desktop\DispatchAPI\DispatchAPI\DispatchService\obj\Release\DispatchService.pdb
