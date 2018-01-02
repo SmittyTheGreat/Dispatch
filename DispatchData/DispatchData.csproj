@@ -68,6 +68,8 @@
     <Compile Include="Broker.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="VendorRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="BrokerRepository.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>

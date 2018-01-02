@@ -49,12 +49,14 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IBrokerService.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Interfaces\IDriverService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\ISegmentService.cs" />
     <Compile Include="Interfaces\IVehicleService.cs" />
+    <Compile Include="Interfaces\IVendorService.cs" />
     <Compile Include="Models\Broker.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />

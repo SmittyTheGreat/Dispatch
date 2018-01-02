@@ -93,7 +93,7 @@ namespace DispatchService
             }
             if (seg.ProductId != null)
             {
-                seg.SegmentProdcut = productService.GetProduct((int)seg.ProductId);
+                seg.SegmentProduct = productService.GetProduct((int)seg.ProductId);
             }
             if (seg.StandbyLocationId != null)
             {
@@ -123,7 +123,7 @@ namespace DispatchService
             }
             if (seg.ProductId != null)
             {
-                seg.SegmentProdcut = productService.GetProduct((int)seg.ProductId);
+                seg.SegmentProduct = productService.GetProduct((int)seg.ProductId);
             }
             if (seg.SegmentStatusId != null)
             {

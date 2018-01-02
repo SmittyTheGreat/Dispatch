@@ -9,6 +9,7 @@ namespace DispatchCore.Models
     public class Vehicle
     {
         public int VehicleId { get; set; }
+        public String VehicleNumber { get; set; }
         public int? VehicleTypeId { get; set; }
         public VehicleType VehType { get; set; }
         public int? StartingMileage { get; set; }

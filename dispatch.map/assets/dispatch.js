@@ -11,7 +11,8 @@ var Steepless = {
 
 
 var Config ={
-	url: 'http://localhost:63499/api/',
+	url: 'http://dispatch.us-east-1.elasticbeanstalk.com/api/',
+	//url: 'http://localhost:63499/api/',
 	routePolylineStyle:{
 		strokeColor:'#AAA',
 		strokeOpacity:0.7,
@@ -22,6 +23,8 @@ var Config ={
 		strokeOpacity:0.6,
 		strokeWeight:6
 	},
+	globalZIndex:0,
+	waypointMapMarkerURL:'https://maps.google.com/mapfiles/kml/pal2/icon13.png'
 
 }
 
@@ -120,16 +123,69 @@ var App = React.createClass({displayName: "App",
 			$.each(data.results,function(index,o){
 				var i=1
 				o.waypoints = [];
+				o.waypointMarkers = [];
+				o.productList = '';
+				o.assignedVehicleList = '';
 				var wpCount = o.StandbySegments.length - 2
 				var start = o.StandbySegments[0].StandbyLocation.Address + ' ' + o.StandbySegments[0].StandbyLocation.City + ' ' +  o.StandbySegments[0].StandbyLocation.Zip;
+				o.startAddress = start;
 				var end = o.StandbySegments[wpCount + 1].StandbyLocation.Address + ' ' + o.StandbySegments[wpCount + 1].StandbyLocation.City + ' ' +  o.StandbySegments[wpCount + 1].StandbyLocation.Zip
+				o.endAddress = o.end
 				var wpProcessed = 0
 				var geocoder = new google.maps.Geocoder();
 				if(o.StandbySegments.length == 2){
+					if(o.StandbySegments[i-1].SegmentProduct !== undefined){
+						if(o.productList.indexOf(o.StandbySegments[i-1].SegmentProduct.Name) < 0){
+							if(o.productList.length < 1){
+								o.productList += o.StandbySegments[i-1].SegmentProduct.Name
+							}else{
+								o.productList += ', ' + o.StandbySegments[i-1].SegmentProduct.Name
+							}
+							
+						}
+					}
+					//redundant but safe
+					if(o.StandbySegments[i].SegmentProduct !== undefined){
+						if(o.productList.indexOf(o.StandbySegments[i].SegmentProduct.Name) < 0){
+							if(o.productList.length < 1){
+								o.productList += o.StandbySegments[i].SegmentProduct.Name
+							}else{
+								o.productList += ', ' + o.StandbySegments[i].SegmentProduct.Name
+							}
+							
+						}
+					}
+
+					if(o.StandbySegments[i-1].AssignedVehicle !== undefined){
+						if(o.assignedVehicleList.indexOf(o.StandbySegments[i-1].AssignedVehicle.VehicleNumber) < 0){
+							if(o.assignedVehicleList.length < 1){
+								o.assignedVehicleList += o.StandbySegments[i-1].AssignedVehicle.VehicleNumber
+							}else{
+								o.assignedVehicleList += ', ' + o.StandbySegments[i-1].AssignedVehicle.VehicleNumber
+							}
+							
+						}
+					}
+					//redundant but safe
+					if(o.StandbySegments[i].SegmentProduct !== undefined){
+						if(o.assignedVehicleList.indexOf(o.StandbySegments[i].AssignedVehicle.VehicleNumber) < 0){
+							if(o.assignedVehicleList.length < 1){
+								o.assignedVehicleList += o.StandbySegments[i].AssignedVehicle.VehicleNumber
+							}else{
+								o.assignedVehicleList += ', ' + o.StandbySegments[i].AssignedVehicle.VehicleNumber
+							}
+							
+						}
+					}
+
+
+
+
+
 					
 					Dispatch.directionsService.route({ 
-						origin: start, 
-						destination: end, 
+						origin: new google.maps.LatLng(o.StandbySegments[0].StandbyLocation.Lat,selfOrder.StandbySegments[0].StandbyLocation.Lon),
+						destination: new google.maps.LatLng(o.StandbySegments[o.StandbySegments-1].StandbyLocation.Lat,selfOrder.StandbySegments[o.StandbySegments-1].StandbyLocation.Lon),
 						waypoints: o.waypoints,
 						optimizeWaypoints: false,	
 						travelMode: google.maps.DirectionsTravelMode.DRIVING 
@@ -140,7 +196,7 @@ var App = React.createClass({displayName: "App",
 							strokeOpacity:Config.routePolylineStyle.strokeOpacity,
 							strokeWeight: Config.routePolylineStyle.strokeWeight
 						})
-						directionsRenderer.setOptions({polylineOptions: poly}); 
+						directionsRenderer.setOptions({polylineOptions: poly, suppressMarkers:true}); 
 						directionsRenderer.setMap(Dispatch.map); 
 						directionsRenderer.setDirections(result);
 						o.dRenderer = directionsRenderer
@@ -153,28 +209,52 @@ var App = React.createClass({displayName: "App",
 							self.state.orders = ordersArray
 							self.setState(self.state)
 						} 
-					  }); 
+					 }); 
 					
 						
-					}
+				}
 				while(i<o.StandbySegments.length-1){
-					
-					geocoder.geocode({'address':o.StandbySegments[i].StandbyLocation.Address + ' ' + o.StandbySegments[i].StandbyLocation.City + ' ' +  o.StandbySegments[i].StandbyLocation.Zip}, function(results,status){
-						if(status == 'OK'){
-							var pos = {lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()}
-							o.waypoints.push({ location : new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()), stopover:true });
+					if(o.StandbySegments[i-1].SegmentProduct !== undefined){
+						if(o.productList.indexOf(o.StandbySegments[i-1].SegmentProduct.Name) < 0){
+							if(o.productList.length < 1){
+								o.productList += o.StandbySegments[i-1].SegmentProduct.Name
+							}else{
+								o.productList += ', ' + o.StandbySegments[i-1].SegmentProduct.Name
+							}
+							
+						}
+					}
+					if(o.StandbySegments[i-1].AssignedVehicle !== undefined){
+						if(o.assignedVehicleList.indexOf(o.StandbySegments[i-1].AssignedVehicle.VehicleNumber) < 0){
+							if(o.assignedVehicleList.length < 1){
+								o.assignedVehicleList += o.StandbySegments[i-1].AssignedVehicle.VehicleNumber
+							}else{
+								o.assignedVehicleList += ', ' + o.StandbySegments[i-1].AssignedVehicle.VehicleNumber
+							}
+							
+						}
+					}
+
+				
+
+					// geocoder.geocode({'address':o.StandbySegments[i].StandbyLocation.Address + ' ' + o.StandbySegments[i].StandbyLocation.City + ' ' +  o.StandbySegments[i].StandbyLocation.Zip}, function(results,status){
+					// 	if(status == 'OK'){
+							//var pos = {lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()}
+							o.waypoints.push({ location : new google.maps.LatLng(o.StandbySegments[i].StandbyLocation.Lat, o.StandbySegments[i].StandbyLocation.Lon), stopover:true });
+							
 							wpProcessed++
 							if(wpProcessed == wpCount){
 								Dispatch.directionsService.route({ 
-									origin: start, 
-									destination: end, 
+									origin: new google.maps.LatLng(o.StandbySegments[0].StandbyLocation.Lat,o.StandbySegments[0].StandbyLocation.Lon),
+									destination: new google.maps.LatLng(o.StandbySegments[o.StandbySegments.length-1].StandbyLocation.Lat,o.StandbySegments[o.StandbySegments.length-1].StandbyLocation.Lon),
 									waypoints: o.waypoints,
 									optimizeWaypoints: true,	
 									travelMode: google.maps.DirectionsTravelMode.DRIVING 
 								  }, function(result) { 
 									var directionsRenderer = new google.maps.DirectionsRenderer({
 										//map: map,
-										suppressPolylines: true
+										suppressPolylines: true,
+										suppressMarkers: true,
 									  }); 
 									// var poly = new google.maps.Polyline({
 									// 	strokeColor:'#555',
@@ -233,10 +313,27 @@ var App = React.createClass({displayName: "App",
 									} 
 								  }); 
 							}
-						}
-					})
+						
 					i++
 				}
+
+					// var length = o.StandbySegments.length - 1
+					// marker = new google.maps.Marker({
+					// 	position: new google.maps.LatLng(o.StandbySegments[length].StandbyLocation.Lat,o.StandbySegments[length].StandbyLocation.Lon),
+					// 	map: Dispatch.map,
+					// 	title: o.StandbySegments[1].StandbyLocation.Name,
+					// 	icon: Config.waypointMapMarkerURL
+
+					// })
+
+					// marker['infowin'] = new google.maps.InfoWindow({
+					// 	content: '<b>' + o.StandbySegments[length].StandbyLocation.Name + '</b>'
+					// 	size: new google.maps.Size(150,50)
+					// })
+
+					// o.waypointMarkers.push(marker)
+
+
 
 
 			})

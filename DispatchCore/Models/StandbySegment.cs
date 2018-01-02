@@ -18,7 +18,7 @@ namespace DispatchCore.Models
         public int? AssignedBrokerId { get; set; }
         public Broker AssignedBroker { get; set; }
         public int? ProductId { get; set; }
-        public Product SegmentProdcut { get; set; }
+        public Product SegmentProduct { get; set; }
         public DateTime? ScheduledStart { get; set; } 
         public DateTime? ScheduledEnd { get; set; }
         public DateTime? ActualStart { get; set; }

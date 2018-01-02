@@ -31,63 +31,31 @@ handleClick: function(index){
     //this.props.data.dRenderer.setOptions({polylineOptions: poly}); 
     var result = selfOrder.dRenderer.directions
    
+   // selfOrder.dRenderer.setOptions({suppressMarkers: false})
 
     $.each(Dispatch.Orders,function(i,o){
         if(o.OrderId != selfOrder.OrderId){
         
-            nonSelectedResult = o.dRenderer.directions
-           // o.dRenderer.setDirections({routes:[]});
-            o.dRenderer.setDirections(nonSelectedResult);
-            var bounds = new google.maps.LatLngBounds();
-            var route = nonSelectedResult.routes[0];
-            var path = nonSelectedResult.routes[0].overview_path;
-            var legs = nonSelectedResult.routes[0].legs;
-          
-            o.polyline = new google.maps.Polyline({
-               // map:Dispatch.map, 
-                strokeColor:Config.routePolylineStyle.strokeColor,
-                strokeOpacity:Config.routePolylineStyle.strokeOpacity,
-                strokeWeight: Config.routePolylineStyle.strokeWeight, 
-                path:[]})
-            for (i = 0; i < legs.length; i++) {
-             
-            //   if (i == 1) {
-            // 	polyline.setOptions({strokeColor: "red"});
-            // 	}
-              var steps = legs[i].steps;
-              for (j = 0; j < steps.length; j++) {
-                var nextSegment = steps[j].path;
-                for (k = 0; k < nextSegment.length; k++) {
-                    
-                    o.polyline.getPath().push(nextSegment[k]);
-                    o.polyline.path =  o.polyline.getPath()
-                  bounds.extend(nextSegment[k]);
-                }
-              }
-            }
-        
-            //o.dRenderer.setDirections({routes:[]});
-            
-           // o.polyline.setMap(Dispatch.map);
-            
-          //  Dispatch.map.fitBounds(bounds);
+            o.polyline.setOptions({strokeColor:Config.routePolylineStyle.strokeColor});
 
+            var i = 0
+            if(o.waypointMarkers !== undefined)
+            while(i<o.waypointMarkers.length){
+               // o.waypointMarkers[i].setMap(null)
+               o.waypointMarkers[i].setVisible(false)
+                i++
+            }
 
         }
     })
+
+
+
     var bounds = new google.maps.LatLngBounds();
     var route = result.routes[0];
     var path = result.routes[0].overview_path;
     var legs = result.routes[0].legs;
 
-    selfOrder.dRenderer.setDirections({routes:[]});
-    selfOrder.dRenderer.setDirections(result);
-    selfOrder.polyline = new google.maps.Polyline({
-      //  map:Dispatch.map, 
-        strokeColor: Config.selectedRoutePolylineStyle.strokeColor,
-        strokeOpacity: Config.selectedRoutePolylineStyle.strokeOpacity,
-        strokeWeight:  Config.selectedRoutePolylineStyle.strokeWeight, 
-        path:[]})
     for (i = 0; i < legs.length; i++) {
       
     //   if (i == 1) {
@@ -102,8 +70,71 @@ handleClick: function(index){
         }
       }
     }
-    selfOrder.polyline.setMap(null);
-    selfOrder.polyline.setMap(Dispatch.map);
+    // selfOrder.polyline.setMap(null);
+    // selfOrder.polyline.setMap(Dispatch.map);
+
+    if(selfOrder.waypointMarkers === undefined || selfOrder.waypointMarkers.length == 0){
+        selfOrder.waypointMarkers = []
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(selfOrder.StandbySegments[0].StandbyLocation.Lat,selfOrder.StandbySegments[0].StandbyLocation.Lon),
+            map: Dispatch.map,
+            title: selfOrder.StandbySegments[0].StandbyLocation.Name,
+            icon: Config.waypointMapMarkerURL
+
+        })
+        marker['infowin'] = new google.maps.InfoWindow({
+            content: '<b>' + selfOrder.StandbySegments[0].StandbyLocation.Name + '</b>'
+          //  size: new google.maps.Size(150,50)
+        })
+
+        selfOrder.waypointMarkers.push(marker);
+     //    marker['infowin'].open(Dispatch.map,this)
+        var i = 1
+        while(i<selfOrder.StandbySegments.length-1){
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(selfOrder.StandbySegments[i].StandbyLocation.Lat,selfOrder.StandbySegments[i].StandbyLocation.Lon),
+                map: Dispatch.map,
+                title: selfOrder.StandbySegments[i].StandbyLocation.Name,
+                icon: Config.waypointMapMarkerURL
+
+            })
+            marker['infowin'] = new google.maps.InfoWindow({
+                content: '<b>' + selfOrder.StandbySegments[i].StandbyLocation.Name + '</b>'
+               // size: new google.maps.Size(150,50)
+            })
+
+            selfOrder.waypointMarkers.push(marker);
+            i++
+        }
+
+
+        var length = selfOrder.StandbySegments.length - 1
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(selfOrder.StandbySegments[length].StandbyLocation.Lat,selfOrder.StandbySegments[length].StandbyLocation.Lon),
+            map: Dispatch.map,
+            title: selfOrder.StandbySegments[length].StandbyLocation.Name,
+            icon: Config.waypointMapMarkerURL
+
+        })
+        marker['infowin'] = new google.maps.InfoWindow({
+            content: '<b>' + selfOrder.StandbySegments[length].StandbyLocation.Name + '</b>'
+            //size: new google.maps.Size(150,50)
+        })
+
+        selfOrder.waypointMarkers.push(marker);
+
+    }else{
+        var i = 0
+        while(i<selfOrder.waypointMarkers.length){
+            selfOrder.waypointMarkers[i].setVisible(true)
+            i++
+        }
+
+    }
+    
+    selfOrder.polyline.setOptions({strokeColor:Config.selectedRoutePolylineStyle.strokeColor});
+    selfOrder.polyline.setOptions({ zIndex: Config.globalZIndex++ });
+    selfOrder.dRenderer.setDirections(result)
     Dispatch.map.fitBounds(bounds);
     this.setState({
         selected: true
@@ -132,22 +163,26 @@ render: function(){
                 React.createElement('span',{className:'orderCardLegDurationWrapper'},data.friendlyTotalDuration))),
                 React.createElement('div', {className:'orderCardProductLabelRow'},
                     React.createElement('label',{className:'orderCardProductLabel'}, "Product"), 
-                    React.createElement('label',{className:'orderCardCustomerLabel'}, 'Customer')),
+                    React.createElement('label',{className:'orderCardVendorLabel'}, 'Vendor')),
                 React.createElement('div', {className:'orderCardProductRow'},
-                    React.createElement('span',{className:'orderCardProductWrapper'}, data.ProductName), 
-                    React.createElement('span',{className:'orderCardCustomerWrapper'}, data.CustomerName)),
+                    React.createElement('span',{className:'orderCardProductWrapper'}, data.productList), 
+                    React.createElement('span',{className:'orderCardVendorWrapper'}, data.OrderVendor.Name)),
                 React.createElement('div', {className:'orderCardLocationsLabelRow'},
-                    React.createElement('label',{className:'orderCardSourceLabel'}, "From"), 
-                    React.createElement('label',{className:'orderCardDestinationLabel'}, 'At')),
+                    React.createElement('label',{className:'orderCardAssignedVehicleLabel'}, "Assigned Vehicle"), 
+                    React.createElement('label',{className:'orderCardDestinationLabel'}, '')),
                 React.createElement('div', {className:'orderCardLocationNamesRow'},
-                    React.createElement('span',{className:'orderCardSourceNameWrapper'}, data.VendorName), 
-                    React.createElement('span',{className:'orderCardDestinationNameWrapper'},  data.DestinationName)),
-                React.createElement('div',{className:'orderCardButtonRow'},
-                    React.createElement("button", {onClick:self.handleDetailsClick}, "Details")
-                )
+                    React.createElement('span',{className:'orderCardSourceNameWrapper'}, data.assignedVehicleList), 
+                    React.createElement('div', {className:'orderCardButtonRow'},
+                        React.createElement("button", {onClick:self.handleDetailsClick}, "Details"),
+                        )
+                    // React.createElement('span',{className:'orderCardDestinationNameWrapper'},  data.DestinationName)),
+              //  React.createElement('div',{className:'orderCardButtonRow'},
+                   // React.createElement("button", {onClick:self.handleDetailsClick}, "Details")
+               // )
 
                 
             )
+                )
         
     );
 }

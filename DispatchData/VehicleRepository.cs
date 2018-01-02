@@ -17,6 +17,7 @@ namespace DispatchData.Repositories
                 var query = db.Vehicles.Select(v => new DispatchCore.Models.Vehicle()
                 {
                     VehicleId = v.VehicleId,
+                    VehicleNumber = v.VehicleNumber,
                     VehicleTypeId = v.VehicleTypeId,
                     StartingMileage = v.StartingMileage,
                     CurrentMileage = v.CurrentMileage,
@@ -43,6 +44,7 @@ namespace DispatchData.Repositories
                 if(v != null)
                 {
                     result.VehicleId = v.VehicleId;
+                    result.VehicleNumber = v.VehicleNumber;
                     result.VehicleTypeId = v.VehicleTypeId;
                     result.StartingMileage = v.StartingMileage;
                     result.CurrentMileage = v.CurrentMileage;
@@ -70,6 +72,7 @@ namespace DispatchData.Repositories
 
         
                 dbVehicle.VehicleTypeId = v.VehicleTypeId;
+                dbVehicle.VehicleNumber = v.VehicleNumber;
                 dbVehicle.StartingMileage = v.StartingMileage;
                 dbVehicle.CurrentMileage = v.CurrentMileage;
                 dbVehicle.HomeLocationId = v.HomeLocationId;

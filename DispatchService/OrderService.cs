@@ -13,10 +13,14 @@ namespace DispatchService
     {
         private OrdersRepository repo;
         private SegmentService segmentService;
+        private CustomerService customerService;
+        private VendorService vendorService;
         public OrderService()
         {
             repo = new OrdersRepository();
             segmentService = new SegmentService();
+            customerService = new CustomerService();
+            vendorService = new VendorService();
         }
         public SearchResults<Order> GetOrders(SearchOptions<DispatchCore.Models.Order> filter)
         {
@@ -40,6 +44,14 @@ namespace DispatchService
 
         private Order BuildOrder(Order o)
         {
+            if(o.CustomerId != null)
+            {
+                o.OrderCustomer = customerService.GetCustomer((int)o.CustomerId);
+            }
+            if(o.VendorId != null)
+            {
+                o.OrderVendor = vendorService.GetVendor((int)o.VendorId);
+            }
             o.StandbySegments = segmentService.GetStandbySegments(new SearchOptions<StandbySegment>(new StandbySegment()
             {
                 OrderId = o.OrderId
