@@ -445,6 +445,7 @@ var App = React.createClass({displayName: "App",
 			if(index == i){
 				self.currentOrder = d;
 				self.editingOrder = true;
+				Dispatch.currentDetailOrder = d
 			}
 		});
 	
