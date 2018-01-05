@@ -68,6 +68,16 @@
     <Compile Include="Broker.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DriverSchedule.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleRepository.cs" />
+    <Compile Include="SegmentActivity.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleSchedule.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="VendorRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="BrokerRepository.cs" />

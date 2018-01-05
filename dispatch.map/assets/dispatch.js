@@ -10,6 +10,30 @@ var Steepless = {
 };
 
 
+
+Date.prototype.formatForCard = function(){
+    return (this.getMonth() + 1) + 
+    "/" +  this.getDate() + ' ' + this.getHours() + ':' + this.getMinutes()
+}
+
+Date.prototype.formatTimeForCard = function(){
+    if(this.getMinutes() == '0'){
+    	return  this.getHours() + ':00'
+    }
+    return  this.getHours() + ':' + this.getMinutes()
+}
+var getTravelSegmentMinutes = function(segment){
+	var start = new Date(segment.ScheduledStart)
+	var end = new Date(segment.ScheduledEnd)
+	if(start.getHours() == end.getHours()){
+		return (end.getMinutes() - start.getMinutes())
+	}else{
+		var totalMinutes = 0
+		totalMinutes += end.getMinutes()
+		totalMinutes += (60-start.getMinutes())
+		return totalMinutes
+	}
+}
 var Config ={
 	url: 'http://dispatch.us-east-1.elasticbeanstalk.com/api/',
 	//url: 'http://localhost:63499/api/',
@@ -124,6 +148,25 @@ var App = React.createClass({displayName: "App",
 				var i=1
 				o.waypoints = [];
 				o.waypointMarkers = [];
+				o.totalSegments = [];
+
+				var totalIndex = 0
+				while(totalIndex<((o.StandbySegments.length + o.TravelSegments.length)+2)){
+					$.each(o.StandbySegments,function(i,s){
+						if(s.OrderIndex == totalIndex){
+							o.totalSegments.push(s)
+						}
+					})
+					if(o.totalSegments[totalIndex] === undefined){
+						$.each(o.TravelSegments,function(i,s){
+							if(s.OrderIndex == totalIndex){
+								o.totalSegments.push(s)
+							}
+						})
+					}
+					totalIndex++
+				}
+
 				o.productList = '';
 				o.assignedVehicleList = '';
 				var wpCount = o.StandbySegments.length - 2
@@ -214,7 +257,7 @@ var App = React.createClass({displayName: "App",
 						
 				}
 				while(i<o.StandbySegments.length-1){
-					if(o.StandbySegments[i-1].SegmentProduct !== undefined){
+					if(o.StandbySegments[i-1].SegmentProduct !== undefined && o.StandbySegments[i-1].SegmentProduct !== null){
 						if(o.productList.indexOf(o.StandbySegments[i-1].SegmentProduct.Name) < 0){
 							if(o.productList.length < 1){
 								o.productList += o.StandbySegments[i-1].SegmentProduct.Name
@@ -297,9 +340,19 @@ var App = React.createClass({displayName: "App",
 									o.polyline.setMap(Dispatch.map);
 									Dispatch.map.fitBounds(bounds);
 
-									o.friendlyTotalDuration = ((o.totalDuration / 60).toFixed(2)) + ' min'
+
+									o.totalDuration = ((o.totalDuration / 60).toFixed(2))
+
+									//o.friendlyTotalDuration = ((o.totalDuration / 60).toFixed(2)) + ' min'
 									o.friendlyTotalDistance = ((o.totalDistance / 1609.34).toFixed(2)) + ' mi'
 
+
+									o.totalDuration = parseInt(o.totalDuration)
+									$.each(o.TravelSegments,function(i,s){
+										o.totalDuration += getTravelSegmentMinutes(s)
+									})
+
+									o.friendlyTotalDuration = o.totalDuration + ' min'
 
 									o.dRenderer = directionsRenderer
 						

@@ -32,6 +32,11 @@ namespace DispatchData
         public Nullable<int> StatusChangeAckVendor { get; set; }
         public Nullable<int> StatusChangeAckCustomer { get; set; }
         public Nullable<int> StatusChangeAckBroker { get; set; }
+        public Nullable<int> SegmentActivityId { get; set; }
+        public Nullable<int> VehicleScheduleId { get; set; }
+        public Nullable<int> DriverScheduleId { get; set; }
+        public Nullable<int> VehicleScheduleIndex { get; set; }
+        public Nullable<int> DriverScheduleIndex { get; set; }
     
         public virtual Broker Broker { get; set; }
         public virtual Driver Driver { get; set; }
@@ -40,5 +45,8 @@ namespace DispatchData
         public virtual Product Product { get; set; }
         public virtual SegmentStatus SegmentStatus { get; set; }
         public virtual Vehicle Vehicle { get; set; }
+        public virtual SegmentActivity SegmentActivity { get; set; }
+        public virtual DriverSchedule DriverSchedule { get; set; }
+        public virtual VehicleSchedule VehicleSchedule { get; set; }
     }
 }

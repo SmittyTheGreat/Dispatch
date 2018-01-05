@@ -60,7 +60,7 @@ namespace DispatchData.Repositories
         {
             using (DispatchEntities db = new DispatchEntities())
             {
-                DispatchData.Order dbOrder = db.Orders.FirstOrDefault(o => o.OrderId == order.OrderId);
+                Order dbOrder = db.Orders.FirstOrDefault(o => o.OrderId == order.OrderId);
                 if (dbOrder == null)
                 {
                     dbOrder = db.Orders.Create();

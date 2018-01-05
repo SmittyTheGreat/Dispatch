@@ -43,6 +43,15 @@
           <Property Name="OnDuty" Type="int" />
           <Property Name="HomeLocationId" Type="int" />
         </EntityType>
+        <EntityType Name="DriverSchedules">
+          <Key>
+            <PropertyRef Name="DriverScheduleId" />
+          </Key>
+          <Property Name="DriverScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="DispatchedBy" Type="int" />
+          <Property Name="BrokerId" Type="int" />
+        </EntityType>
         <EntityType Name="Locations">
           <Key>
             <PropertyRef Name="LocationId" />
@@ -79,6 +88,13 @@
           <Property Name="VendorId" Type="int" />
           <Property Name="Notes" Type="varchar" MaxLength="8000" />
         </EntityType>
+        <EntityType Name="SegmentActivitys">
+          <Key>
+            <PropertyRef Name="SegmentActivityId" />
+          </Key>
+          <Property Name="SegmentActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="SegmentStatuses">
           <Key>
             <PropertyRef Name="SegmentStatusId" />
@@ -102,12 +118,17 @@
           <Property Name="ActualEnd" Type="datetime" Precision="0" />
           <Property Name="OrderIndex" Type="int" />
           <Property Name="StandbyLocationId" Type="int" />
+          <Property Name="SegmentActivityId" Type="int" />
           <Property Name="SegmentStatusId" Type="int" />
           <Property Name="StatusChangeAckDriver" Type="int" />
           <Property Name="StatusChangeAckDispatch" Type="int" />
           <Property Name="StatusChangeAckVendor" Type="int" />
           <Property Name="StatusChangeAckCustomer" Type="int" />
           <Property Name="StatusChangeAckBroker" Type="int" />
+          <Property Name="VehicleScheduleId" Type="int" />
+          <Property Name="DriverScheduleId" Type="int" />
+          <Property Name="VehicleScheduleIndex" Type="int" />
+          <Property Name="DriverScheduleIndex" Type="int" />
         </EntityType>
         <EntityType Name="TravelSegments">
           <Key>
@@ -130,6 +151,10 @@
           <Property Name="StatusChangeAckVendor" Type="int" />
           <Property Name="StatusChangeAckCustomer" Type="int" />
           <Property Name="StatusChangeAckBroker" Type="int" />
+          <Property Name="VehicleScheduleId" Type="int" />
+          <Property Name="DriverScheduleId" Type="int" />
+          <Property Name="VehicleScheduleIndex" Type="int" />
+          <Property Name="DriverScheduleIndex" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -167,6 +192,15 @@
           <Property Name="VendorOwnerId" Type="int" />
           <Property Name="CustomerOwnerId" Type="int" />
           <Property Name="DriverOwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="VehicleSchedules">
+          <Key>
+            <PropertyRef Name="VehicleScheduleId" />
+          </Key>
+          <Property Name="VehicleScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleId" Type="int" />
+          <Property Name="DispatchedBy" Type="int" />
+          <Property Name="BrokerId" Type="int" />
         </EntityType>
         <EntityType Name="VehicleStatuses">
           <Key>
@@ -262,6 +296,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="DriverScheduleBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="DriverSchedules" Type="Self.DriverSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="DriverSchedules">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverScheduleDispatcherId">
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="0..1" />
+          <End Role="DriverSchedules" Type="Self.DriverSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatchers">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="DriverSchedules">
+              <PropertyRef Name="DispatchedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverSchedulesDriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="DriverSchedules" Type="Self.DriverSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DriverSchedules">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="OrderCustomerId">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -334,6 +404,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SegmentDriverSchedule">
+          <End Role="DriverSchedules" Type="Self.DriverSchedules" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DriverSchedules">
+              <PropertyRef Name="DriverScheduleId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="DriverScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SegmentOrderId">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
@@ -382,6 +464,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SegmentVehicleSchedule">
+          <End Role="VehicleSchedules" Type="Self.VehicleSchedules" Multiplicity="0..1" />
+          <End Role="TravelSegments" Type="Self.TravelSegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleSchedules">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Principal>
+            <Dependent Role="TravelSegments">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="StandbyLocationId">
           <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
           <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
@@ -391,6 +485,18 @@
             </Principal>
             <Dependent Role="StandbySegments">
               <PropertyRef Name="StandbyLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentActivityId">
+          <End Role="SegmentActivitys" Type="Self.SegmentActivitys" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentActivitys">
+              <PropertyRef Name="SegmentActivityId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="SegmentActivityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -442,6 +548,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="StandbySegmentsDriverSchedule">
+          <End Role="DriverSchedules" Type="Self.DriverSchedules" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DriverSchedules">
+              <PropertyRef Name="DriverScheduleId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="DriverScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="StandbySegmentSegmentStatusId">
           <End Role="SegmentStatuses" Type="Self.SegmentStatuses" Multiplicity="0..1" />
           <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
@@ -451,6 +569,18 @@
             </Principal>
             <Dependent Role="StandbySegments">
               <PropertyRef Name="SegmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentsVehicleSchedule">
+          <End Role="VehicleSchedules" Type="Self.VehicleSchedules" Multiplicity="0..1" />
+          <End Role="StandbySegments" Type="Self.StandbySegments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleSchedules">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Principal>
+            <Dependent Role="StandbySegments">
+              <PropertyRef Name="VehicleScheduleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -586,6 +716,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="VehicleScheduleBrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="VehicleSchedules" Type="Self.VehicleSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="VehicleSchedules">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleScheduleDispatcherId">
+          <End Role="Dispatchers" Type="Self.Dispatchers" Multiplicity="0..1" />
+          <End Role="VehicleSchedules" Type="Self.VehicleSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatchers">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="VehicleSchedules">
+              <PropertyRef Name="DispatchedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleScheduleVehicleId">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="VehicleSchedules" Type="Self.VehicleSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="VehicleSchedules">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="VehicleVehicleStatusId">
           <End Role="VehicleStatuses" Type="Self.VehicleStatuses" Multiplicity="0..1" />
           <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
@@ -639,14 +805,17 @@
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Dispatchers" EntityType="Self.Dispatchers" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="DriverSchedules" EntityType="Self.DriverSchedules" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="SegmentActivitys" EntityType="Self.SegmentActivitys" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="SegmentStatuses" EntityType="Self.SegmentStatuses" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="StandbySegments" EntityType="Self.StandbySegments" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="TravelSegments" EntityType="Self.TravelSegments" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dispatch" store:Type="Tables" />
+          <EntitySet Name="VehicleSchedules" EntityType="Self.VehicleSchedules" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="VehicleStatuses" EntityType="Self.VehicleStatuses" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" Schema="dispatch" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dispatch" store:Type="Tables" />
@@ -674,6 +843,18 @@
             <End Role="Locations" EntitySet="Locations" />
             <End Role="Drivers" EntitySet="Drivers" />
           </AssociationSet>
+          <AssociationSet Name="DriverScheduleBrokerId" Association="Self.DriverScheduleBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="DriverSchedules" EntitySet="DriverSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="DriverScheduleDispatcherId" Association="Self.DriverScheduleDispatcherId">
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+            <End Role="DriverSchedules" EntitySet="DriverSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="DriverSchedulesDriverId" Association="Self.DriverSchedulesDriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="DriverSchedules" EntitySet="DriverSchedules" />
+          </AssociationSet>
           <AssociationSet Name="OrderCustomerId" Association="Self.OrderCustomerId">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
@@ -698,6 +879,10 @@
             <End Role="Drivers" EntitySet="Drivers" />
             <End Role="TravelSegments" EntitySet="TravelSegments" />
           </AssociationSet>
+          <AssociationSet Name="SegmentDriverSchedule" Association="Self.SegmentDriverSchedule">
+            <End Role="DriverSchedules" EntitySet="DriverSchedules" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
           <AssociationSet Name="SegmentOrderId" Association="Self.SegmentOrderId">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="TravelSegments" EntitySet="TravelSegments" />
@@ -714,8 +899,16 @@
             <End Role="Vehicles" EntitySet="Vehicles" />
             <End Role="TravelSegments" EntitySet="TravelSegments" />
           </AssociationSet>
+          <AssociationSet Name="SegmentVehicleSchedule" Association="Self.SegmentVehicleSchedule">
+            <End Role="VehicleSchedules" EntitySet="VehicleSchedules" />
+            <End Role="TravelSegments" EntitySet="TravelSegments" />
+          </AssociationSet>
           <AssociationSet Name="StandbyLocationId" Association="Self.StandbyLocationId">
             <End Role="Locations" EntitySet="Locations" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentActivityId" Association="Self.StandbySegmentActivityId">
+            <End Role="SegmentActivitys" EntitySet="SegmentActivitys" />
             <End Role="StandbySegments" EntitySet="StandbySegments" />
           </AssociationSet>
           <AssociationSet Name="StandbySegmentBrokerId" Association="Self.StandbySegmentBrokerId">
@@ -734,8 +927,16 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="StandbySegments" EntitySet="StandbySegments" />
           </AssociationSet>
+          <AssociationSet Name="StandbySegmentsDriverSchedule" Association="Self.StandbySegmentsDriverSchedule">
+            <End Role="DriverSchedules" EntitySet="DriverSchedules" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
           <AssociationSet Name="StandbySegmentSegmentStatusId" Association="Self.StandbySegmentSegmentStatusId">
             <End Role="SegmentStatuses" EntitySet="SegmentStatuses" />
+            <End Role="StandbySegments" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentsVehicleSchedule" Association="Self.StandbySegmentsVehicleSchedule">
+            <End Role="VehicleSchedules" EntitySet="VehicleSchedules" />
             <End Role="StandbySegments" EntitySet="StandbySegments" />
           </AssociationSet>
           <AssociationSet Name="StandbySegmentVehicleId" Association="Self.StandbySegmentVehicleId">
@@ -781,6 +982,18 @@
           <AssociationSet Name="VehicleHomeLocationId" Association="Self.VehicleHomeLocationId">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleBrokerId" Association="Self.VehicleScheduleBrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="VehicleSchedules" EntitySet="VehicleSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleDispatcherId" Association="Self.VehicleScheduleDispatcherId">
+            <End Role="Dispatchers" EntitySet="Dispatchers" />
+            <End Role="VehicleSchedules" EntitySet="VehicleSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleVehicleId" Association="Self.VehicleScheduleVehicleId">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="VehicleSchedules" EntitySet="VehicleSchedules" />
           </AssociationSet>
           <AssociationSet Name="VehicleVehicleStatusId" Association="Self.VehicleVehicleStatusId">
             <End Role="VehicleStatuses" EntitySet="VehicleStatuses" />
@@ -967,6 +1180,53 @@
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="Vehicle" EntitySet="Vehicles" />
           </AssociationSet>
+          <EntitySet Name="SegmentActivitys" EntityType="dispatchModel.SegmentActivity" />
+          <AssociationSet Name="StandbySegmentActivityId" Association="dispatchModel.StandbySegmentActivityId">
+            <End Role="SegmentActivity" EntitySet="SegmentActivitys" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <EntitySet Name="DriverSchedules" EntityType="dispatchModel.DriverSchedule" />
+          <EntitySet Name="VehicleSchedules" EntityType="dispatchModel.VehicleSchedule" />
+          <AssociationSet Name="DriverScheduleBrokerId" Association="dispatchModel.DriverScheduleBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="DriverSchedule" EntitySet="DriverSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleBrokerId" Association="dispatchModel.VehicleScheduleBrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="VehicleSchedule" EntitySet="VehicleSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="DriverScheduleDispatcherId" Association="dispatchModel.DriverScheduleDispatcherId">
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+            <End Role="DriverSchedule" EntitySet="DriverSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleDispatcherId" Association="dispatchModel.VehicleScheduleDispatcherId">
+            <End Role="Dispatcher" EntitySet="Dispatchers" />
+            <End Role="VehicleSchedule" EntitySet="VehicleSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="DriverSchedulesDriverId" Association="dispatchModel.DriverSchedulesDriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="DriverSchedule" EntitySet="DriverSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentsDriverSchedule" Association="dispatchModel.StandbySegmentsDriverSchedule">
+            <End Role="DriverSchedule" EntitySet="DriverSchedules" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="StandbySegmentsVehicleSchedule" Association="dispatchModel.StandbySegmentsVehicleSchedule">
+            <End Role="VehicleSchedule" EntitySet="VehicleSchedules" />
+            <End Role="StandbySegment" EntitySet="StandbySegments" />
+          </AssociationSet>
+          <AssociationSet Name="VehicleScheduleVehicleId" Association="dispatchModel.VehicleScheduleVehicleId">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehicleSchedule" EntitySet="VehicleSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentDriverSchedule" Association="dispatchModel.SegmentDriverSchedule">
+            <End Role="DriverSchedule" EntitySet="DriverSchedules" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
+          <AssociationSet Name="SegmentVehicleSchedule" Association="dispatchModel.SegmentVehicleSchedule">
+            <End Role="VehicleSchedule" EntitySet="VehicleSchedules" />
+            <End Role="TravelSegment" EntitySet="TravelSegments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Broker">
           <Key>
@@ -982,6 +1242,8 @@
           <NavigationProperty Name="StandbySegments" Relationship="dispatchModel.StandbySegmentBrokerId" FromRole="Broker" ToRole="StandbySegment" />
           <NavigationProperty Name="Users" Relationship="dispatchModel.UserBrokerId" FromRole="Broker" ToRole="User" />
           <NavigationProperty Name="Vehicles" Relationship="dispatchModel.VehicleBrokerOwnerId" FromRole="Broker" ToRole="Vehicle" />
+          <NavigationProperty Name="DriverSchedules" Relationship="dispatchModel.DriverScheduleBrokerId" FromRole="Broker" ToRole="DriverSchedule" />
+          <NavigationProperty Name="VehicleSchedules" Relationship="dispatchModel.VehicleScheduleBrokerId" FromRole="Broker" ToRole="VehicleSchedule" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -1009,6 +1271,8 @@
           <NavigationProperty Name="Customer" Relationship="dispatchModel.DispatchCustomerId" FromRole="Dispatcher" ToRole="Customer" />
           <NavigationProperty Name="Vendor" Relationship="dispatchModel.DispatcherVendorId" FromRole="Dispatcher" ToRole="Vendor" />
           <NavigationProperty Name="Users" Relationship="dispatchModel.UserDispatcherId" FromRole="Dispatcher" ToRole="User" />
+          <NavigationProperty Name="DriverSchedules" Relationship="dispatchModel.DriverScheduleDispatcherId" FromRole="Dispatcher" ToRole="DriverSchedule" />
+          <NavigationProperty Name="VehicleSchedules" Relationship="dispatchModel.VehicleScheduleDispatcherId" FromRole="Dispatcher" ToRole="VehicleSchedule" />
         </EntityType>
         <EntityType Name="Driver">
           <Key>
@@ -1027,6 +1291,7 @@
           <NavigationProperty Name="Users" Relationship="dispatchModel.UserDriverId" FromRole="Driver" ToRole="User" />
           <NavigationProperty Name="Vehicles" Relationship="dispatchModel.VehicleCurrentDriverId" FromRole="Driver" ToRole="Vehicle" />
           <NavigationProperty Name="Vehicles1" Relationship="dispatchModel.VehicleDriverOwnerId" FromRole="Driver" ToRole="Vehicle" />
+          <NavigationProperty Name="DriverSchedules" Relationship="dispatchModel.DriverSchedulesDriverId" FromRole="Driver" ToRole="DriverSchedule" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1116,6 +1381,14 @@
           <NavigationProperty Name="Product" Relationship="dispatchModel.StandbySegmentProductId" FromRole="StandbySegment" ToRole="Product" />
           <NavigationProperty Name="SegmentStatus" Relationship="dispatchModel.StandbySegmentSegmentStatusId" FromRole="StandbySegment" ToRole="SegmentStatus" />
           <NavigationProperty Name="Vehicle" Relationship="dispatchModel.StandbySegmentVehicleId" FromRole="StandbySegment" ToRole="Vehicle" />
+          <Property Name="SegmentActivityId" Type="Int32" />
+          <NavigationProperty Name="SegmentActivity" Relationship="dispatchModel.StandbySegmentActivityId" FromRole="StandbySegment" ToRole="SegmentActivity" />
+          <Property Name="VehicleScheduleId" Type="Int32" />
+          <Property Name="DriverScheduleId" Type="Int32" />
+          <Property Name="VehicleScheduleIndex" Type="Int32" />
+          <Property Name="DriverScheduleIndex" Type="Int32" />
+          <NavigationProperty Name="DriverSchedule" Relationship="dispatchModel.StandbySegmentsDriverSchedule" FromRole="StandbySegment" ToRole="DriverSchedule" />
+          <NavigationProperty Name="VehicleSchedule" Relationship="dispatchModel.StandbySegmentsVehicleSchedule" FromRole="StandbySegment" ToRole="VehicleSchedule" />
         </EntityType>
         <EntityType Name="TravelSegment">
           <Key>
@@ -1144,6 +1417,12 @@
           <NavigationProperty Name="Product" Relationship="dispatchModel.SegmentProductId" FromRole="TravelSegment" ToRole="Product" />
           <NavigationProperty Name="SegmentStatus" Relationship="dispatchModel.SegmentSegmentStatusId" FromRole="TravelSegment" ToRole="SegmentStatus" />
           <NavigationProperty Name="Vehicle" Relationship="dispatchModel.SegmentVehicleId" FromRole="TravelSegment" ToRole="Vehicle" />
+          <Property Name="VehicleScheduleId" Type="Int32" />
+          <Property Name="DriverScheduleId" Type="Int32" />
+          <Property Name="VehicleScheduleIndex" Type="Int32" />
+          <Property Name="DriverScheduleIndex" Type="Int32" />
+          <NavigationProperty Name="DriverSchedule" Relationship="dispatchModel.SegmentDriverSchedule" FromRole="TravelSegment" ToRole="DriverSchedule" />
+          <NavigationProperty Name="VehicleSchedule" Relationship="dispatchModel.SegmentVehicleSchedule" FromRole="TravelSegment" ToRole="VehicleSchedule" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1196,6 +1475,7 @@
           <NavigationProperty Name="VehicleStatus" Relationship="dispatchModel.VehicleVehicleStatusId" FromRole="Vehicle" ToRole="VehicleStatus" />
           <NavigationProperty Name="VehicleType" Relationship="dispatchModel.VehicleVehicleTypeId" FromRole="Vehicle" ToRole="VehicleType" />
           <NavigationProperty Name="Vendor" Relationship="dispatchModel.VehicleVendorOwnerId" FromRole="Vehicle" ToRole="Vendor" />
+          <NavigationProperty Name="VehicleSchedules" Relationship="dispatchModel.VehicleScheduleVehicleId" FromRole="Vehicle" ToRole="VehicleSchedule" />
         </EntityType>
         <EntityType Name="VehicleStatus">
           <Key>
@@ -1671,6 +1951,174 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SegmentActivity">
+          <Key>
+            <PropertyRef Name="SegmentActivityId" />
+          </Key>
+          <Property Name="SegmentActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StandbySegments" Relationship="dispatchModel.StandbySegmentActivityId" FromRole="SegmentActivity" ToRole="StandbySegment" />
+        </EntityType>
+        <Association Name="StandbySegmentActivityId">
+          <End Type="dispatchModel.SegmentActivity" Role="SegmentActivity" Multiplicity="0..1" />
+          <End Type="dispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegmentActivity">
+              <PropertyRef Name="SegmentActivityId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="SegmentActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DriverSchedule">
+          <Key>
+            <PropertyRef Name="DriverScheduleId" />
+          </Key>
+          <Property Name="DriverScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="DispatchedBy" Type="Int32" />
+          <Property Name="BrokerId" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="dispatchModel.DriverScheduleBrokerId" FromRole="DriverSchedule" ToRole="Broker" />
+          <NavigationProperty Name="Dispatcher" Relationship="dispatchModel.DriverScheduleDispatcherId" FromRole="DriverSchedule" ToRole="Dispatcher" />
+          <NavigationProperty Name="Driver" Relationship="dispatchModel.DriverSchedulesDriverId" FromRole="DriverSchedule" ToRole="Driver" />
+          <NavigationProperty Name="StandbySegments" Relationship="dispatchModel.StandbySegmentsDriverSchedule" FromRole="DriverSchedule" ToRole="StandbySegment" />
+          <NavigationProperty Name="TravelSegments" Relationship="dispatchModel.SegmentDriverSchedule" FromRole="DriverSchedule" ToRole="TravelSegment" />
+        </EntityType>
+        <EntityType Name="VehicleSchedule">
+          <Key>
+            <PropertyRef Name="VehicleScheduleId" />
+          </Key>
+          <Property Name="VehicleScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleId" Type="Int32" />
+          <Property Name="DispatchedBy" Type="Int32" />
+          <Property Name="BrokerId" Type="Int32" />
+          <NavigationProperty Name="Broker" Relationship="dispatchModel.VehicleScheduleBrokerId" FromRole="VehicleSchedule" ToRole="Broker" />
+          <NavigationProperty Name="Dispatcher" Relationship="dispatchModel.VehicleScheduleDispatcherId" FromRole="VehicleSchedule" ToRole="Dispatcher" />
+          <NavigationProperty Name="StandbySegments" Relationship="dispatchModel.StandbySegmentsVehicleSchedule" FromRole="VehicleSchedule" ToRole="StandbySegment" />
+          <NavigationProperty Name="Vehicle" Relationship="dispatchModel.VehicleScheduleVehicleId" FromRole="VehicleSchedule" ToRole="Vehicle" />
+          <NavigationProperty Name="TravelSegments" Relationship="dispatchModel.SegmentVehicleSchedule" FromRole="VehicleSchedule" ToRole="TravelSegment" />
+        </EntityType>
+        <Association Name="DriverScheduleBrokerId">
+          <End Type="dispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="dispatchModel.DriverSchedule" Role="DriverSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="DriverSchedule">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleScheduleBrokerId">
+          <End Type="dispatchModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="dispatchModel.VehicleSchedule" Role="VehicleSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="BrokerId" />
+            </Principal>
+            <Dependent Role="VehicleSchedule">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverScheduleDispatcherId">
+          <End Type="dispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="0..1" />
+          <End Type="dispatchModel.DriverSchedule" Role="DriverSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatcher">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="DriverSchedule">
+              <PropertyRef Name="DispatchedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleScheduleDispatcherId">
+          <End Type="dispatchModel.Dispatcher" Role="Dispatcher" Multiplicity="0..1" />
+          <End Type="dispatchModel.VehicleSchedule" Role="VehicleSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dispatcher">
+              <PropertyRef Name="DispatcherId" />
+            </Principal>
+            <Dependent Role="VehicleSchedule">
+              <PropertyRef Name="DispatchedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverSchedulesDriverId">
+          <End Type="dispatchModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="dispatchModel.DriverSchedule" Role="DriverSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DriverSchedule">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentsDriverSchedule">
+          <End Type="dispatchModel.DriverSchedule" Role="DriverSchedule" Multiplicity="0..1" />
+          <End Type="dispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DriverSchedule">
+              <PropertyRef Name="DriverScheduleId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="DriverScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StandbySegmentsVehicleSchedule">
+          <End Type="dispatchModel.VehicleSchedule" Role="VehicleSchedule" Multiplicity="0..1" />
+          <End Type="dispatchModel.StandbySegment" Role="StandbySegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleSchedule">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Principal>
+            <Dependent Role="StandbySegment">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehicleScheduleVehicleId">
+          <End Type="dispatchModel.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="dispatchModel.VehicleSchedule" Role="VehicleSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="VehicleSchedule">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentDriverSchedule">
+          <End Type="dispatchModel.DriverSchedule" Role="DriverSchedule" Multiplicity="0..1" />
+          <End Type="dispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DriverSchedule">
+              <PropertyRef Name="DriverScheduleId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="DriverScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SegmentVehicleSchedule">
+          <End Type="dispatchModel.VehicleSchedule" Role="VehicleSchedule" Multiplicity="0..1" />
+          <End Type="dispatchModel.TravelSegment" Role="TravelSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleSchedule">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Principal>
+            <Dependent Role="TravelSegment">
+              <PropertyRef Name="VehicleScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1769,6 +2217,11 @@
           <EntitySetMapping Name="StandbySegments">
             <EntityTypeMapping TypeName="dispatchModel.StandbySegment">
               <MappingFragment StoreEntitySet="StandbySegments">
+                <ScalarProperty Name="DriverScheduleIndex" ColumnName="DriverScheduleIndex" />
+                <ScalarProperty Name="VehicleScheduleIndex" ColumnName="VehicleScheduleIndex" />
+                <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+                <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
+                <ScalarProperty Name="SegmentActivityId" ColumnName="SegmentActivityId" />
                 <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
                 <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
                 <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
@@ -1793,6 +2246,10 @@
           <EntitySetMapping Name="TravelSegments">
             <EntityTypeMapping TypeName="dispatchModel.TravelSegment">
               <MappingFragment StoreEntitySet="TravelSegments">
+                <ScalarProperty Name="DriverScheduleIndex" ColumnName="DriverScheduleIndex" />
+                <ScalarProperty Name="VehicleScheduleIndex" ColumnName="VehicleScheduleIndex" />
+                <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+                <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
                 <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
                 <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
                 <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
@@ -1877,6 +2334,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SegmentActivitys">
+            <EntityTypeMapping TypeName="dispatchModel.SegmentActivity">
+              <MappingFragment StoreEntitySet="SegmentActivitys">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SegmentActivityId" ColumnName="SegmentActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DriverSchedules">
+            <EntityTypeMapping TypeName="dispatchModel.DriverSchedule">
+              <MappingFragment StoreEntitySet="DriverSchedules">
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="DispatchedBy" ColumnName="DispatchedBy" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleSchedules">
+            <EntityTypeMapping TypeName="dispatchModel.VehicleSchedule">
+              <MappingFragment StoreEntitySet="VehicleSchedules">
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="DispatchedBy" ColumnName="DispatchedBy" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1893,7 +2378,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

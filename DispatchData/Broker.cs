@@ -22,6 +22,8 @@ namespace DispatchData
             this.StandbySegments = new HashSet<StandbySegment>();
             this.Users = new HashSet<User>();
             this.Vehicles = new HashSet<Vehicle>();
+            this.DriverSchedules = new HashSet<DriverSchedule>();
+            this.VehicleSchedules = new HashSet<VehicleSchedule>();
         }
     
         public int BrokerId { get; set; }
@@ -35,5 +37,7 @@ namespace DispatchData
         public virtual ICollection<StandbySegment> StandbySegments { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<DriverSchedule> DriverSchedules { get; set; }
+        public virtual ICollection<VehicleSchedule> VehicleSchedules { get; set; }
     }
 }

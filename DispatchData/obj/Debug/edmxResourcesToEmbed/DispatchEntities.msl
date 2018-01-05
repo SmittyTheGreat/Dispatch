@@ -93,6 +93,11 @@
     <EntitySetMapping Name="StandbySegments">
       <EntityTypeMapping TypeName="dispatchModel.StandbySegment">
         <MappingFragment StoreEntitySet="StandbySegments">
+          <ScalarProperty Name="DriverScheduleIndex" ColumnName="DriverScheduleIndex" />
+          <ScalarProperty Name="VehicleScheduleIndex" ColumnName="VehicleScheduleIndex" />
+          <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+          <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
+          <ScalarProperty Name="SegmentActivityId" ColumnName="SegmentActivityId" />
           <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
           <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
           <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
@@ -117,6 +122,10 @@
     <EntitySetMapping Name="TravelSegments">
       <EntityTypeMapping TypeName="dispatchModel.TravelSegment">
         <MappingFragment StoreEntitySet="TravelSegments">
+          <ScalarProperty Name="DriverScheduleIndex" ColumnName="DriverScheduleIndex" />
+          <ScalarProperty Name="VehicleScheduleIndex" ColumnName="VehicleScheduleIndex" />
+          <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+          <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
           <ScalarProperty Name="StatusChangeAckBroker" ColumnName="StatusChangeAckBroker" />
           <ScalarProperty Name="StatusChangeAckCustomer" ColumnName="StatusChangeAckCustomer" />
           <ScalarProperty Name="StatusChangeAckVendor" ColumnName="StatusChangeAckVendor" />
@@ -198,6 +207,34 @@
           <ScalarProperty Name="HomeLocationId" ColumnName="HomeLocationId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SegmentActivitys">
+      <EntityTypeMapping TypeName="dispatchModel.SegmentActivity">
+        <MappingFragment StoreEntitySet="SegmentActivitys">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SegmentActivityId" ColumnName="SegmentActivityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DriverSchedules">
+      <EntityTypeMapping TypeName="dispatchModel.DriverSchedule">
+        <MappingFragment StoreEntitySet="DriverSchedules">
+          <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+          <ScalarProperty Name="DispatchedBy" ColumnName="DispatchedBy" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="DriverScheduleId" ColumnName="DriverScheduleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleSchedules">
+      <EntityTypeMapping TypeName="dispatchModel.VehicleSchedule">
+        <MappingFragment StoreEntitySet="VehicleSchedules">
+          <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+          <ScalarProperty Name="DispatchedBy" ColumnName="DispatchedBy" />
+          <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+          <ScalarProperty Name="VehicleScheduleId" ColumnName="VehicleScheduleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

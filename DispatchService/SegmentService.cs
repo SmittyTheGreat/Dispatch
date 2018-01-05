@@ -76,6 +76,15 @@ namespace DispatchService
             return repo.GetSegmentStatus(statusId);
         }
 
+        public List<SegmentActivity> GetSegmentActivities()
+        {
+            return repo.GetSegmentActivities();
+        }
+        public SegmentActivity GetSegmentActivity(int id)
+        {
+            return repo.GetSegmentActivity(id);
+        }
+
 
         private StandbySegment BuildSegment(StandbySegment seg)
         {
@@ -102,6 +111,10 @@ namespace DispatchService
             if (seg.SegmentStatusId != null)
             {
                 seg.SegmentStatus = GetSegmentStatus((int)seg.SegmentStatusId);
+            }
+            if (seg.SegmentActivityId != null)
+            {
+                seg.StandbyActivity = GetSegmentActivity((int)seg.SegmentActivityId);
             }
 
             return seg;

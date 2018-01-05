@@ -40,44 +40,78 @@ render: function(){
         height: this.state.heightUnit
     };
     var travelMode = this.state.travelMode;
+
+    var productDisplay = ''
+    if(data.SegmentProduct !== undefined && data.SegmentProduct !== null){
+        productDisplay = data.SegmentProduct.Name || ''
+        if(productDisplay != ''){
+            productDisplay = ' (' + productDisplay + ')'
+        }
+    } 
     
     if(Dispatch.currentDetailOrder !== undefined){
-        return (
-         
-            
-                React.createElement("div", {className: 'orderCardWrapper',onClick: self.handleClick}, 
-                    React.createElement('div', {className:'orderCardHeaderRow'},//React.createElement("i", {className:"fa fa-hashtag cardIcon"}), 
-                    React.createElement('span',{className:'orderCardOrderNumberWrapper'}, 'Segment Card'),
-                    React.createElement('div',{className:'orderCardDistanceDurationWrapper'},
-                    React.createElement('span',{className:'orderCardLegDistanceWrapper'},'Segment Card'),
-                    React.createElement('span',{className:'orderCardLegDurationWrapper'},data.StandbyLocation.Name))),
-                    React.createElement('div', {className:'orderCardProductLabelRow'},
-                        React.createElement('label',{className:'orderCardProductLabel'}, "Product"), 
-                        React.createElement('label',{className:'orderCardVendorLabel'}, 'Vendor')),
-                    React.createElement('div', {className:'orderCardProductRow'},
-                       // React.createElement('span',{className:'orderCardProductWrapper'}, Dispatch.currentDetailOrder.productList), 
-                       // React.createElement('span',{className:'orderCardVendorWrapper'}, Dispatch.currentDetailOrder.OrderVendor.Name)),
-                    React.createElement('div', {className:'orderCardLocationsLabelRow'},
-                        React.createElement('label',{className:'orderCardAssignedVehicleLabel'}, "Assigned Vehicle"), 
-                        React.createElement('label',{className:'orderCardDestinationLabel'}, '')),
-                    React.createElement('div', {className:'orderCardLocationNamesRow'},
-                        //React.createElement('span',{className:'orderCardSourceNameWrapper'}, Dispatch.currentDetailOrder.assignedVehicleList), 
-                        //React.createElement('div', {className:'orderCardButtonRow'},
-                          //  React.createElement("button", {onClick:self.handleDetailsClick}, "Details"),
-                        //)
-                        // React.createElement('span',{className:'orderCardDestinationNameWrapper'},  data.DestinationName)),
-                  //  React.createElement('div',{className:'orderCardButtonRow'},
-                       // React.createElement("button", {onClick:self.handleDetailsClick}, "Details")
-                   // )
-
-                    
-                    )
-        
+        if(data.StandbySegmentId){
+            return (
+             
                 
-                )
-               )
-        
-        );
+                    React.createElement("div", {className: 'standbySegmentCardWrapper',onClick: self.handleClick}, 
+                        React.createElement('div', {className:'standbySegmentCardHeaderRow'},//React.createElement("i", {className:"fa fa-hashtag cardIcon"}), 
+                        React.createElement('span',{className:'standbySegmentCardTitleWrapper'}, '#' + (data.OrderIndex + 1) + ' ' +  data.StandbyLocation.Name),
+                        React.createElement('div',{className:'standbySegmentCardDurationWrapper'},
+                            React.createElement('span',{className:'standbySegmentCardStartTimeWrapper'},new Date(data.ScheduledStart).formatTimeForCard()),
+                            React.createElement('span',{className:'standbySegmentCardTimeDash'},' - '),
+                            React.createElement('span',{className:'standbySegmentCardEndTimeWrapper'},new Date(data.ScheduledEnd).formatTimeForCard()))),
+                        React.createElement('div', {className:'StandbySegmentCardAddressLabelRow'},
+                            React.createElement('label',{className:'StandbySegmentCardAddressLabelRow'}, "Address")), 
+                           // React.createElement('label',{className:'orderCardVendorLabel'}, 'Vendor')),
+                        React.createElement('div', {className:'standbySegmentCardAddressRow'},
+                            React.createElement('span',{className:'standbySegmentCardAddressWrapper'}, data.StandbyLocation.Address + ', ' + data.StandbyLocation.City + ' ' + data.StandbyLocation.Zip), 
+                            React.createElement('span',{className:'standbySegmentCardCityWrapper'}, )),
+                            //React.createElement('div', {className:'orderCardLocationsLabelRow'},
+                               // React.createElement('label',{className:'orderCardAssignedVehicleLabel'}, "Assigned Vehicle"), 
+                               // React.createElement('label',{className:'orderCardDestinationLabel'}, '')),
+                        React.createElement('div', {className:'StandbySegmentCardActivityLabelRow'},
+                            React.createElement('label',{className:'StandbySegmentCardActivityLabelRow'}, "Activity")),
+                        React.createElement('div', {className:'standbySegmentCardActivitiesRow'},
+                            React.createElement('span',{className:'standbySegmentCardActivityWrapper'}, data.StandbyActivity.Description + productDisplay)), 
+                            //React.createElement('div', {className:'orderCardButtonRow'},
+                              //  React.createElement("button", {onClick:self.handleDetailsClick}, "Details"),
+                            //)
+                            // React.createElement('span',{className:'orderCardDestinationNameWrapper'},  data.DestinationName)),
+                      //  React.createElement('div',{className:'orderCardButtonRow'},
+                           // React.createElement("button", {onClick:self.handleDetailsClick}, "Details")
+                       // )
+
+                        
+                        )
+            
+                    
+                    
+                   
+            
+            );
+        }else{
+            return (
+             
+                
+                    React.createElement("div", {className: 'travelSegmentCardWrapper',onClick: self.handleClick}, 
+                        React.createElement('div', {className:'standbySegmentCardHeaderRow'},//React.createElement("i", {className:"fa fa-hashtag cardIcon"}), 
+                        React.createElement('span',{className:'standbySegmentCardTitleWrapper'}, '#' + (data.OrderIndex +1) + ' Travel to Next Waypoint'),
+                        React.createElement('div',{className:'standbySegmentCardDurationWrapper'},
+                            React.createElement('span',{className:'standbySegmentCardStartTimeWrapper'},new Date(data.ScheduledStart).formatTimeForCard()),
+                            React.createElement('span',{className:'standbySegmentCardTimeDash'},' - '),
+                            React.createElement('span',{className:'standbySegmentCardEndTimeWrapper'},new Date(data.ScheduledEnd).formatTimeForCard()))),
+                       
+
+                        
+                        )
+            
+                    
+                    
+                   
+            
+            );
+        }
     }else{
         return(React.createElement('div'))
     }

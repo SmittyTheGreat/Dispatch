@@ -20,5 +20,9 @@ namespace DispatchCore.Interfaces
         List<SegmentStatus> GetSegmentStatuses();
         SegmentStatus GetSegmentStatus(int statusId);
 
+        List<SegmentActivity> GetSegmentActivities();
+        SegmentActivity GetSegmentActivity(int id);
+
+
     }
 }

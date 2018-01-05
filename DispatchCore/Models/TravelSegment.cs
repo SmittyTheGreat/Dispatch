@@ -25,6 +25,10 @@ namespace DispatchCore.Models
         public DateTime? ActualStart { get; set; }
         public DateTime? ActualEnd { get; set; }
         public int? OrderIndex { get; set; }
+        public int? VehicleScheduleId { get; set; }
+        public int? DriverScheduleId { get; set; }
+        public int? VehicleScheduleIndex { get; set; }
+        public int? DriverScheduleIndex { get; set; }
         public int? StandbyLocationId { get; set; }
         public int? SegmentStatusId { get; set; }
         public SegmentStatus SegmentStatus { get; set; }

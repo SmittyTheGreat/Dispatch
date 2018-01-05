@@ -21,6 +21,7 @@ namespace DispatchData
             this.Users = new HashSet<User>();
             this.Vehicles = new HashSet<Vehicle>();
             this.Vehicles1 = new HashSet<Vehicle>();
+            this.DriverSchedules = new HashSet<DriverSchedule>();
         }
     
         public int DriverId { get; set; }
@@ -37,5 +38,6 @@ namespace DispatchData
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         public virtual ICollection<Vehicle> Vehicles1 { get; set; }
+        public virtual ICollection<DriverSchedule> DriverSchedules { get; set; }
     }
 }

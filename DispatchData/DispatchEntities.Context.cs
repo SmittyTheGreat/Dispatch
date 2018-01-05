@@ -40,5 +40,8 @@ namespace DispatchData
         public DbSet<VehicleStatus> VehicleStatuses { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<SegmentActivity> SegmentActivitys { get; set; }
+        public DbSet<DriverSchedule> DriverSchedules { get; set; }
+        public DbSet<VehicleSchedule> VehicleSchedules { get; set; }
     }
 }

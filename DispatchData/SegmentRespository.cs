@@ -28,7 +28,12 @@ namespace DispatchData.Repositories
                     ActualStart = s.ActualStart,
                     ActualEnd = s.ActualEnd,
                     OrderIndex = s.OrderIndex,
+                    DriverScheduleId = s.DriverScheduleId,
+                    VehicleScheduleId = s.VehicleScheduleId,
+                    DriverScheduleIndex = s.DriverScheduleIndex,
+                    VehicleScheduleIndex = s.VehicleScheduleIndex,
                     StandbyLocationId = s.StandbyLocationId,
+                    SegmentActivityId = s.SegmentActivityId,
                     SegmentStatusId = s.SegmentStatusId,
                     StatusChangeAckBroker = s.StatusChangeAckBroker,
                     StatusChangeAckCustomer = s.StatusChangeAckCustomer,
@@ -65,7 +70,12 @@ namespace DispatchData.Repositories
                     result.ActualStart = s.ActualStart;
                     result.ActualEnd = s.ActualEnd;
                     result.OrderIndex = s.OrderIndex;
+                    result.VehicleScheduleId = s.VehicleScheduleId;
+                    result.DriverScheduleId = s.DriverScheduleId;
+                    result.DriverScheduleIndex = s.DriverScheduleIndex;
+                    result.VehicleScheduleIndex = s.VehicleScheduleIndex;
                     result.StandbyLocationId = s.StandbyLocationId;
+                    result.SegmentActivityId = s.SegmentActivityId;
                     result.SegmentStatusId = s.SegmentStatusId;
                     result.StatusChangeAckBroker = s.StatusChangeAckBroker;
                     result.StatusChangeAckCustomer = s.StatusChangeAckCustomer;
@@ -101,7 +111,12 @@ namespace DispatchData.Repositories
                 dbSegment.ActualStart = s.ActualStart;
                 dbSegment.ActualEnd = s.ActualEnd;
                 dbSegment.OrderIndex = s.OrderIndex;
+                dbSegment.VehicleScheduleId = s.VehicleScheduleId;
+                dbSegment.DriverScheduleId = s.DriverScheduleId;
+                dbSegment.DriverScheduleIndex = s.DriverScheduleIndex;
+                dbSegment.VehicleScheduleIndex = s.VehicleScheduleIndex;
                 dbSegment.StandbyLocationId = s.StandbyLocationId;
+                dbSegment.SegmentActivityId = s.SegmentActivityId;
                 dbSegment.SegmentStatusId = s.SegmentStatusId;
                 dbSegment.StatusChangeAckBroker = s.StatusChangeAckBroker;
                 dbSegment.StatusChangeAckCustomer = s.StatusChangeAckCustomer;
@@ -139,6 +154,10 @@ namespace DispatchData.Repositories
                     ActualStart = s.ActualStart,
                     ActualEnd = s.ActualEnd,
                     OrderIndex = s.OrderIndex,
+                    DriverScheduleId = s.DriverScheduleId,
+                    VehicleScheduleId = s.VehicleScheduleId,
+                    DriverScheduleIndex = s.DriverScheduleIndex,
+                    VehicleScheduleIndex = s.VehicleScheduleIndex,
                     SegmentStatusId = s.SegmentStatusId,
                     StatusChangeAckBroker = s.StatusChangeAckBroker,
                     StatusChangeAckCustomer = s.StatusChangeAckCustomer,
@@ -173,6 +192,10 @@ namespace DispatchData.Repositories
                     result.ActualStart = s.ActualStart;
                     result.ActualEnd = s.ActualEnd;
                     result.OrderIndex = s.OrderIndex;
+                    result.VehicleScheduleId = s.VehicleScheduleId;
+                    result.DriverScheduleId = s.DriverScheduleId;
+                    result.DriverScheduleIndex = s.DriverScheduleIndex;
+                    result.VehicleScheduleIndex = s.VehicleScheduleIndex;
                     result.SegmentStatusId = s.SegmentStatusId;
                     result.StatusChangeAckBroker = s.StatusChangeAckBroker;
                     result.StatusChangeAckCustomer = s.StatusChangeAckCustomer;
@@ -208,6 +231,10 @@ namespace DispatchData.Repositories
                 dbSegment.ActualStart = s.ActualStart;
                 dbSegment.ActualEnd = s.ActualEnd;
                 dbSegment.OrderIndex = s.OrderIndex;
+                dbSegment.VehicleScheduleId = s.VehicleScheduleId;
+                dbSegment.DriverScheduleId = s.DriverScheduleId;
+                dbSegment.DriverScheduleIndex = s.DriverScheduleIndex;
+                dbSegment.VehicleScheduleIndex = s.VehicleScheduleIndex;
                 dbSegment.SegmentStatusId = s.SegmentStatusId;
                 dbSegment.StatusChangeAckBroker = s.StatusChangeAckBroker;
                 dbSegment.StatusChangeAckCustomer = s.StatusChangeAckCustomer;
@@ -254,6 +281,36 @@ namespace DispatchData.Repositories
                 }
             }
 
+            return result;
+        }
+
+        public List<DispatchCore.Models.SegmentActivity> GetSegmentActivities()
+        {
+            List<DispatchCore.Models.SegmentActivity> results = new List<DispatchCore.Models.SegmentActivity>();
+            using(DispatchEntities db = new DispatchEntities())
+            {
+                var query = db.SegmentActivitys.Select(s => new DispatchCore.Models.SegmentActivity()
+                {
+                    SegmentActivityId = s.SegmentActivityId,
+                    Description = s.Description
+                });
+                results = query.ToList();
+            }
+            return results;
+        }
+
+        public DispatchCore.Models.SegmentActivity GetSegmentActivity(int id)
+        {
+            DispatchCore.Models.SegmentActivity result = new DispatchCore.Models.SegmentActivity();
+            using(DispatchEntities db = new DispatchEntities())
+            {
+                var s = db.SegmentActivitys.FirstOrDefault(seg => seg.SegmentActivityId == id);
+                if(s != null)
+                {
+                    result.SegmentActivityId = s.SegmentActivityId;
+                    result.Description = s.Description;
+                }
+            }
             return result;
         }
 

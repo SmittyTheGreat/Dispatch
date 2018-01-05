@@ -18,6 +18,7 @@ namespace DispatchData
         {
             this.StandbySegments = new HashSet<StandbySegment>();
             this.TravelSegments = new HashSet<TravelSegment>();
+            this.VehicleSchedules = new HashSet<VehicleSchedule>();
         }
     
         public int VehicleId { get; set; }
@@ -43,5 +44,6 @@ namespace DispatchData
         public virtual VehicleStatus VehicleStatus { get; set; }
         public virtual VehicleType VehicleType { get; set; }
         public virtual Vendor Vendor { get; set; }
+        public virtual ICollection<VehicleSchedule> VehicleSchedules { get; set; }
     }
 }

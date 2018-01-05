@@ -74,10 +74,11 @@ render: function(){
                     
                 
 
-                    React.createElement('div',{},
-                        React.createElement('ul',{},
-                            React.createElement(StandbySegmentCardList,{data: Dispatch.currentDetailOrder.StandbySegments})
-                        )
+                    React.createElement('div',{className: 'standbySegmentListWrapper'},
+                       
+                            //React.createElement(StandbySegmentCardList,{data: Dispatch.currentDetailOrder.StandbySegments})
+                            React.createElement(SegmentCardList,{data: Dispatch.currentDetailOrder.totalSegments})
+                        
                     
                     )
                 
