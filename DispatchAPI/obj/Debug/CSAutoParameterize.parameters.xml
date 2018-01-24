@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DispatchEntities-Web.config Connection String" description="DispatchEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/DispatchEntities.csdl|res://*/DispatchEntities.ssdl|res://*/DispatchEntities.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=dispatchdb.c35h3bdbyarw.us-east-1.rds.amazonaws.com;user id=smitty;password=PULLTHE1r1pc0rd;database=dispatch&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Smitty\\Desktop\\Dispatch\\Dispatch\\DispatchAPI\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DispatchEntities']/@connectionString" />
+  </parameter>
+</parameters>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DispatchCore.Models;
 
-namespace DispatchData.DispatchData
+namespace DispatchData
 {
     public class ScheduleRepository
     {

@@ -208,7 +208,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\DispatcherController.cs" />
+    <Compile Include="Controllers\SegmentController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BrokerController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,11 +227,43 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="assets\css\addressEntryAccordion.css" />
+    <Content Include="assets\css\dispatch.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\modalWindow.css" />
+    <Content Include="assets\css\orders.css" />
+    <Content Include="assets\css\segments - Copy.css" />
+    <Content Include="assets\css\segments.css" />
+    <Content Include="assets\dispatch.css" />
+    <Content Include="assets\dispatch.js" />
+    <Content Include="assets\dispatch.jsx" />
+    <Content Include="assets\favicon.png" />
+    <Content Include="assets\favicon.svg" />
+    <Content Include="assets\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\icons.svg" />
+    <Content Include="assets\routes.js" />
+    <Content Include="assets\steepless - Copy.css" />
+    <Content Include="assets\steepless - Copy.js" />
+    <Content Include="assets\steepless - Copy.jsx" />
+    <Content Include="assets\steepless.js" />
+    <Content Include="components\AddressEntryAccordion.js" />
+    <Content Include="components\ModalWindow.js" />
+    <Content Include="components\OrderCard.js" />
+    <Content Include="components\OrderDetails.js" />
+    <Content Include="components\OrderEditDetails.js" />
+    <Content Include="components\OrderList.js" />
+    <Content Include="components\SegmentCard.js" />
+    <Content Include="components\SegmentCardList.js" />
+    <Content Include="components\StandbySegmentCard.js" />
+    <Content Include="components\StandbySegmentCardList.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -247,6 +288,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -50,10 +50,12 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IBrokerService.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Interfaces\IDispatcherService.cs" />
     <Compile Include="Interfaces\IDriverService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\ISegmentService.cs" />
     <Compile Include="Interfaces\IVehicleService.cs" />
     <Compile Include="Interfaces\IVendorService.cs" />

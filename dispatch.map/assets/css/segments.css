@@ -1,0 +1,103 @@
+
+
+.standbySegmentListWrapper{
+	/*same as the height of the card details header*/
+	margin-top:125px;
+}
+
+.standbySegmentCardHeaderRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:5%;
+	padding-right: 5%;
+	
+	
+}
+.standbySegmentCardTitleWrapper{
+	margin-right:20px;
+	font-size:16px;
+}
+.standbySegmentCardWrapper{
+	padding-top:10px; 
+	height: 125px;
+	border-bottom: 1px solid #CCC;
+	display: block;
+}
+.standbySegmentCardDurationWrapper{
+	float:right;
+	margin-right:5%;
+	font-size:16px;
+}
+.standbySegmentCardStartTimeWrapper{
+	width:100px;
+	/* margin-left:100px; */
+	
+}
+.standbySegmentCardTimeDash{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.standbySegmentCardEndTimeWrapper{
+	float:right;
+	/*margin-left:15px;*/
+	/* margin-right:8%; */
+
+}
+.standbySegmentCardProductLabelRow{
+	width:95%;
+	padding-left:5%;
+	height: 15px;
+	float: left;
+	font-size: 13px;
+	color: #999;
+}
+.StandbySegmentCardAddressLabelRow{
+	width:95%;
+	padding-left:10px;
+	height: 15px;
+	float: left;
+	font-size: 13px;
+	color: #999;
+}
+.standbySegmentCardAddressRow{
+	width:95%;
+	padding-left:5%;
+}
+.standbySegmentCardAddressWrapper{
+	float: left;
+	
+}
+.standbySegmentCardCityWrapper{
+	float:right;
+	margin-right:5%;
+}
+.StandbySegmentCardActivityLabelRow{
+	width:95%;
+	padding-left:10px;
+	height: 15px;
+	float: left;
+	font-size: 13px;
+	color: #999;
+}
+.standbySegmentCardActivitiesRow{
+	width:95%;
+	padding-left:5%;
+	clear: both;
+}
+.standbySegmentCardActivityWrapper{
+	float: left;
+	
+}
+
+
+
+.travelSegmentCardWrapper{
+	padding-top:10px; 
+	height: 30px;
+	border-bottom: 1px solid #CCC;
+	display: block;
+}
+
+

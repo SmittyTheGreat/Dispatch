@@ -1,0 +1,320 @@
+
+.orderEditWrapper{
+	padding-top:10px; 
+	/*height: 125px;*/
+	/*border-bottom: 1px solid #CCC;*/
+	display: block;
+}
+
+.orderEditOrderNumberRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	/*padding-left:5%;*/
+	padding-right: 5%;	
+}
+.orderNumberInput{
+	width: 165px;
+}
+.orderOrderNumberLabelRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:15px; 
+	padding-right: 5%;	
+}
+.orderEditOrderNumberLabel{
+	width: 165px;
+}
+
+.orderEditPickupLocationRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	/*padding-left:5%;*/
+	padding-right: 5%;	
+}
+.orderPickupLocationInput{
+	width: 165px;
+}
+.orderEditPickupLocationLabelRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:15px;
+	padding-right: 5%;	
+}
+.orderEditPickupLocationLabel{
+	width: 165px;
+}
+
+.orderEditProductRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	/*padding-left:5%;*/
+	padding-right: 5%;	
+}
+.orderProductInput{
+	width: 165px;
+}
+
+.orderEditProductLabelRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:15px;
+	padding-right: 5%;	
+}
+.orderEditProductLabel{
+	width: 165px;
+}
+
+.orderEditDestinationRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	/*padding-left:5%;*/
+	padding-right: 5%;	
+}
+.orderDestinationInput{
+	width: 165px;
+}
+
+
+.orderEditDestinationLabelRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:15px;
+	padding-right: 5%;	
+}
+.orderEditDestinationLabel{
+	width: 165px;
+}
+
+
+.icon{
+	fill: currentColor;
+}
+.cardIcon{
+	
+	margin-right:15px;
+	margin-bottom: 5px;
+}
+.orderListWrapper{
+	height: 80%;
+	overflow-y: scroll;
+}
+
+.orderDetailsWrapper{
+	height: 80%;
+	overflow-y: scroll;
+}
+
+.orderCardWrapper{
+	padding-top:10px; 
+	height: 125px;
+	border-bottom: 1px solid #CCC;
+	display: block;
+}
+.selected{
+	/* padding-top:10px; */
+	background-color: #EEE;
+}
+
+.orderListHeaderWrapper{
+	height: 175px;
+	border-bottom: 1px solid #BBB
+}
+.orderDetailsHeaderWrapper{
+
+}
+.orderListHeaderButtonRow{
+	width: 100%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:5%;
+	margin-right:0%;
+	padding-top:10px;
+}
+.orderListHeaderCreatNew{
+	border: 0;
+	padding: 7px 10px;
+	margin: 0;
+	background-color: #259B24;
+	color: #fff;
+	font-weight: 500;
+	text-align: left;
+	text-transform: uppercase;
+	cursor: pointer;
+	box-sizing: border-box;
+	box-shadow: 0 2px 3px #aaa;
+}
+.orderDetailsHeaderButtonRow{
+	width: 100%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:5%;
+	margin-right:0%;
+	padding-top:10px;
+}
+.orderDetailsHeaderClose{
+	border: 0;
+	padding: 7px 10px;
+	margin: 0;
+	background-color: #D24043;
+	color: #fff;
+	font-weight: 500;
+	text-align: left;
+	text-transform: uppercase;
+	cursor: pointer;
+	box-sizing: border-box;
+	box-shadow: 0 2px 3px #aaa;
+}
+
+.orderDetailsHeaderEdit{
+	border: 0;
+	padding: 7px 10px;
+	margin: 0;
+	margin-left: 30px;
+	background-color: #000;
+	color: #fff;
+	font-weight: 500;
+	text-align: left;
+	text-transform: uppercase;
+	cursor: pointer;
+	box-sizing: border-box;
+	box-shadow: 0 2px 3px #aaa;
+}
+
+.orderCardHeaderRow{
+	width: 96%;
+	float: left;
+	margin-bottom:2px; 
+	font-size: 18px;
+	padding-left:5%;
+	padding-right: 5%;
+	
+	
+}
+.orderCardDistanceDurationWrapper{
+	float:right;
+	margin-right:5%;
+}
+.orderCardOrderNumberWrapper{
+	margin-right:100px;
+}
+.orderCardProductLabelRow{
+	width:95%;
+	padding-left:5%;
+	height: 15px;
+	float: left;
+	font-size: 13px;
+	color: #999;
+}
+.orderCardProductRow{
+	width:95%;
+	padding-left:5%;
+}
+.orderCardLocationNamesRow{
+	width:95%;
+	padding-left:5%;
+}
+.orderCardProductLabel{
+	float: left;
+	
+}
+.orderCardCustomerLabel{
+	float:right;
+	margin-right:5%;
+}
+
+.orderCardVendorLabel{
+	float:right;
+	margin-right:5%;
+}
+
+
+.orderCardProductWrapper{
+	float: left;
+	
+}
+.orderCardVendorWrapper{
+	float:right;
+	margin-right:5%;
+}
+.orderCardLocationsLabelRow{
+	width:95%;
+	padding-left:5%;
+	height: 15px;
+	float: left;
+	font-size: 13px;
+	color: #999;
+}
+.orderCardSourceLabel{
+	float: left;
+	
+}
+.orderCardAssignedVehicleLabel{
+	float: left;
+	
+}
+.orderCardDestinationLabel{
+	float:right;
+	margin-right:5%;
+}
+.orderCardSourceNameWrapper{
+	float: left;
+	
+}
+.orderCardDestinationNameWrapper{
+	float:right;
+	margin-right:5%;
+}
+.orderCardLegDistanceWrapper{
+	width:100px;
+	/* margin-left:100px; */
+	
+}
+.orderCardLegDurationWrapper{
+	float:right;
+	margin-left:15px;
+	/* margin-right:8%; */
+
+}
+.orderCardButtonRow{
+	width: 31%;
+	float: right;
+	margin-bottom:2px;
+	margin-top:-15px; 
+	font-size: 18px;
+	padding-left:5%;
+	
+}
+.orderCardButtonRow button{
+	border: 0;
+	padding: 7px 10px;
+	margin: 0;
+	background-color: #259b24;
+	color: #fff;
+	font-weight: 300;
+	text-align: left;
+	text-transform: uppercase;
+	cursor: pointer;
+	box-sizing: border-box;
+	box-shadow: 0 2px 3px #aaa;
+}
+
+
+

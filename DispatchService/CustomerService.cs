@@ -9,7 +9,7 @@ using DispatchData.Repositories;
 
 namespace DispatchService
 {
-    class CustomerService : ICustomerService
+    public class CustomerService : ICustomerService
     {
         private CustomerRepository repo;
         public CustomerService() { repo = new CustomerRepository(); }

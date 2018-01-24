@@ -18,15 +18,20 @@ namespace DispatchAPI
             config.MapHttpAttributeRoutes();
 
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
             config.Routes.MapHttpRoute(
                 name: "Api",
                 routeTemplate: "api/{controller}/{action}",
                 defaults: new { action = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "ApiParameter",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
 

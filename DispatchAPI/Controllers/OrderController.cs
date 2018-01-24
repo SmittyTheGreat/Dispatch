@@ -24,24 +24,24 @@ namespace DispatchAPI.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Search(SearchOptions<Order> filter)
+        public IHttpActionResult SearchOrders(SearchOptions<Order> filter)
         {
             var results = orderService.GetOrders(filter);
             return Ok(results);
         }
 
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult GetOrder(int id)
         {
             var results = orderService.GetOrder(id);
             return Ok(results);
         }
-        //[HttpPost]
-        //public IHttpActionResult Set(Order order)
-        //{
-        //    var results = orderService.SetOrder(order);
-        //    return Ok(results);
-        //}
+        [HttpPost]
+        public IHttpActionResult SetOrder(Order order)
+        {
+            var results = orderService.SetOrder(order);
+            return Ok(results);
+        }
 
 
 
