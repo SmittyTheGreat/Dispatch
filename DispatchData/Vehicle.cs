@@ -16,6 +16,7 @@ namespace DispatchData
     {
         public Vehicle()
         {
+            this.Positions = new HashSet<Position>();
             this.StandbySegments = new HashSet<StandbySegment>();
             this.TravelSegments = new HashSet<TravelSegment>();
             this.VehicleSchedules = new HashSet<VehicleSchedule>();
@@ -39,11 +40,12 @@ namespace DispatchData
         public virtual Driver Driver { get; set; }
         public virtual Driver Driver1 { get; set; }
         public virtual Location Location { get; set; }
+        public virtual ICollection<Position> Positions { get; set; }
         public virtual ICollection<StandbySegment> StandbySegments { get; set; }
         public virtual ICollection<TravelSegment> TravelSegments { get; set; }
+        public virtual ICollection<VehicleSchedule> VehicleSchedules { get; set; }
         public virtual VehicleStatus VehicleStatus { get; set; }
         public virtual VehicleType VehicleType { get; set; }
         public virtual Vendor Vendor { get; set; }
-        public virtual ICollection<VehicleSchedule> VehicleSchedules { get; set; }
     }
 }

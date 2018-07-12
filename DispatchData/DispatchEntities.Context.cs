@@ -29,19 +29,23 @@ namespace DispatchData
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Dispatcher> Dispatchers { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<DriverSchedule> DriverSchedules { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Position> Positions { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<SegmentActivity> SegmentActivitys { get; set; }
         public DbSet<SegmentStatus> SegmentStatuses { get; set; }
         public DbSet<StandbySegment> StandbySegments { get; set; }
         public DbSet<TravelSegment> TravelSegments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleSchedule> VehicleSchedules { get; set; }
         public DbSet<VehicleStatus> VehicleStatuses { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
-        public DbSet<SegmentActivity> SegmentActivitys { get; set; }
-        public DbSet<DriverSchedule> DriverSchedules { get; set; }
-        public DbSet<VehicleSchedule> VehicleSchedules { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageText> MessageTexts { get; set; }
+        public DbSet<MessageType> MessageTypes { get; set; }
     }
 }

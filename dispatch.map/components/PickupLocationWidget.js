@@ -35,8 +35,10 @@ handleLocationSave:function(location,callback){
 handleSetLocation:function(newLocation,callback){
     this.props.onSetLocation(newLocation)
     this.setState({location:newLocation,openNewInput:false})
-
    
+},
+handleSearchLocationSet:function(data,location){
+    this.props.onPickupLocationFound(data,location)
 },
 render: function(){
     var self = this;
@@ -52,8 +54,14 @@ render: function(){
 
     return (
         React.createElement("div", {className: 'pickupLocationWidgetWrapper'},
+            // React.createElement('div', {className:'orderEditPickupLocationRow'},
+            //     React.createElement('input',{className: 'orderPickupLocationInput',type:'text', value:self.state.location.Name})
+            // ),
             React.createElement('div', {className:'orderEditPickupLocationRow'},
-                React.createElement('input',{className: 'orderPickupLocationInput',type:'text', value:self.state.location.Name})
+                React.createElement(LocationSearchWidget,{className: '',
+                    onFoundLocation:this.handlePickupLocationFound,
+                    onSetLocation:this.handleSetLocation
+                })
             ),
             React.createElement("div", {className: 'pickupLocationWidgetHeader'},
                 React.createElement('label',{className:'none'},"Existing Pickup Location"),

@@ -39,6 +39,10 @@ handleProductNameChange:function(e){
     newProduct.Name = e.target.value
     this.setState({product:newProduct})
 },
+handleProductSelect:function(product){
+    this.props.onSelectProduct(product)
+    this.setState({existingProduct:product})
+},
 render: function(){
     var self = this;
 
@@ -60,9 +64,12 @@ render: function(){
 
     return (
         React.createElement("div", {className: 'productWidgetWrapper'},
-            React.createElement('div', {className:'productInputRow'},
-                React.createElement('input',{className: 'existingProductNameInput',type:'text', value:self.state.existingProduct.Name})
-            ),
+            // React.createElement('div', {className:'productInputRow'},
+            //     React.createElement('input',{className: 'existingProductNameInput',type:'text', value:self.state.existingProduct.Name})
+            // ),
+            React.createElement(ProductSearchWidget,{className: '',
+                    onFoundProduct:this.handleProductSelect
+                }),
             React.createElement("div", {className: 'productWidgetHeader'},
                 React.createElement('label',{className:'none'},"Existing Product"),
                 React.createElement('label',{className:'productWidgetNewProductLabel', 

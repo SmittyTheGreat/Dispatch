@@ -35,7 +35,7 @@ handlePickupLocationFound:function(data,location){
         pickupLocationMarker.setMap(null)
     }
     pickupLocationMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng),
+        position: new google.maps.LatLng(location.Lat,location.Lon),
         map: Dispatch.map,
         title: location.Name,
         icon: Config.waypointMapMarkerURL
@@ -50,7 +50,11 @@ handlePickupLocationFound:function(data,location){
     pickupLocationMarker['infowin'].open(Dispatch.map,pickupLocationMarker)
     Dispatch.map.setCenter(new google.maps.LatLng(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng))
     Dispatch.map.setZoom(15)
-    this.setState({pickupLocationMarker: pickupLocationMarker})
+    if(location.LocationId){
+        this.setState({pickupLocationMarker: pickupLocationMarker,pickupLocation:location})
+    }else{
+        this.setState({pickupLocationMarker: pickupLocationMarker})
+    }
 },
 handleSetPickupLocation:function(location){
     this.setState({pickupLocation:location})
@@ -61,7 +65,7 @@ handleDestinationLocationFound:function(data,location){
         destinationLocationMarker.setMap(null)
     }
     destinationLocationMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng),
+        position: new  google.maps.LatLng(location.Lat,location.Lon),
         map: Dispatch.map,
         title: location.Name,
         icon: Config.waypointMapMarkerURL
@@ -105,6 +109,9 @@ handleSetProduct:function(newProduct,callback){
     callback(newProduct)
     this.setState({product:newProduct})
 },
+handleSelectProduct:function(selectedProduct){
+    this.setState({product:selectedProduct})
+},
 render: function(){
     var self = this;
     var data = this.props.data;
@@ -123,13 +130,18 @@ render: function(){
                     }),                    
                     
                     React.createElement(ProductWidget,{pickupLocation:this.state.pickupLocation,
-                        onSetProduct:this.handleSetProduct
+                        onSetProduct:this.handleSetProduct,
+                        onSelectProduct:this.handleSelectProduct
                        
                     }),
                     React.createElement(DestinationLocationWidget,{data:{},
                         onDestinationLocationFound:this.handleDestinationLocationFound,
                         onSetLocation:this.handleSetDestinationLocation
                     }),
+                    React.createElement(TimeEntryWidget,{data:{},
+                        onDestinationLocationFound:this.handleDestinationLocationFound,
+                        onSetLocation:this.handleSetDestinationLocation
+                    })
                     // React.createElement('div', {className:'orderEditProductRow'},
                     //     React.createElement('input',{className: 'orderProductInput',type:'text'})
                     // ),     

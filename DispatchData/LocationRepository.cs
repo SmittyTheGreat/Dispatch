@@ -29,6 +29,16 @@ namespace DispatchData.Repositories
                     VendorOwnerId = l.VendorId
                 });
 
+                if(filter != null)
+                {
+                    if(filter.filter != null)
+                    {
+                        if(filter.filter.Name != null)
+                        {
+                            query = query.Where(l => l.Name.Contains(filter.filter.Name));
+                        }
+                    }
+                }
                 results = query.ToList();
             }
 

@@ -16,8 +16,8 @@ namespace DispatchData
     {
         public DriverSchedule()
         {
-            this.StandbySegments = new HashSet<StandbySegment>();
             this.TravelSegments = new HashSet<TravelSegment>();
+            this.StandbySegments = new HashSet<StandbySegment>();
         }
     
         public int DriverScheduleId { get; set; }
@@ -28,7 +28,7 @@ namespace DispatchData
         public virtual Broker Broker { get; set; }
         public virtual Dispatcher Dispatcher { get; set; }
         public virtual Driver Driver { get; set; }
-        public virtual ICollection<StandbySegment> StandbySegments { get; set; }
         public virtual ICollection<TravelSegment> TravelSegments { get; set; }
+        public virtual ICollection<StandbySegment> StandbySegments { get; set; }
     }
 }

@@ -209,6 +209,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DispatcherController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\SegmentController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\ProductController.cs" />

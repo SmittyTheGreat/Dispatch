@@ -10,14 +10,36 @@
 <link rel="stylesheet" href="assets/css/addressEntryAccordion.css">
 <link rel="stylesheet" href="assets/css/pickupLocationWidget.css">
 <link rel="stylesheet" href="assets/css/productWidget.css">
+<link rel="stylesheet" href="assets/css/locationSearchWidget.css">
 <link rel="stylesheet" href="assets/css/ordersSidebar.css">
 <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css">
 <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 <div id="app"></div>
+
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD0yJlk2JJa2uYtSb9R0SHnfdS1BmG2vkA",
+    authDomain: "dispatch-190418.firebaseapp.com",
+    databaseURL: "https://dispatch-190418.firebaseio.com",
+    projectId: "dispatch-190418",
+    storageBucket: "",
+    messagingSenderId: "998366516664"
+  };
+  firebase.initializeApp(config);
+</script>
 <script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDy78KkjYwsF3L8za764FPJBhqqPZnVu2w"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<!-- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.9/react-with-addons.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.js"></script> -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"  crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"  crossorigin="anonymous"></script>
+<script src="extras/jquery.autocomplete.min.js"></script>
 
 <script src="services/orderService.js"></script>
 <script src="services/locationService.js"></script>
@@ -26,9 +48,16 @@
 
 <script src="components/ModalWindow.js"></script>
 
+<script src="components/TimeEntryWidget.js"></script>
 <script src="components/AddressEntryAccordion.js"></script>
 <script src="components/PickupLocationWidget.js"></script>
 <script src="components/DestinationLocationWidget.js"></script>
+<script src="components/LocationSearchWidget.js"></script>
+<script src="components/LocationSearchResultItem.js"></script>
+<script src="components/LocationSearchResultItemList.js"></script>
+<script src="components/ProductSearchWidget.js"></script>
+<script src="components/ProductSearchResultItem.js"></script>
+<script src="components/ProductSearchResultItemList.js"></script>
 <script src="components/ProductWidget.js"></script>
 <script src="components/OrderCard.js"></script>
 <script src="components/OrderDetails.js"></script>

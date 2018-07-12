@@ -23,8 +23,8 @@ var getTravelSegmentMinutes = function(segment){
 	}
 }
 var Config ={
-	url: 'http://dispatch.us-east-1.elasticbeanstalk.com/api/',
-	//url: 'http://localhost:63499/api/',
+	 //url: 'http://dispatch.us-east-1.elasticbeanstalk.com/api/',
+	url: 'http://localhost:63499/api/',
 	googleMapsKey:'AIzaSyDy78KkjYwsF3L8za764FPJBhqqPZnVu2w',
 	routePolylineStyle:{
 		strokeColor:'#AAA',
@@ -282,7 +282,8 @@ var Map = React.createClass({displayName: "Map",
 		}
 	},
 	componentDidMount: function(){
-		var node = this.getDOMNode();
+		var node = ReactDOM.findDOMNode(this)
+		// var node = this.getDOMNode();
 		var map = new google.maps.Map(node, this.props.map);
 		Map.pinpointMarker.setMap(map);
 
@@ -333,7 +334,7 @@ var Chart = React.createClass({displayName: "Chart",
 });
 
 
-React.renderComponent(
+ReactDOM.render(
 	React.createElement(App, null),
 	document.getElementById('app')
 );

@@ -17,7 +17,8 @@ render: function(){
     var ordersList = this.state.data.map(function(d, i){
         var key =  d.orderNumber;
         return (
-            React.createElement("li", {className: d.selected ? 'selected' : '', onClick: self.handleClick.bind(self, i)}, 
+            React.createElement("li", {className: d.selected ? 'selected' : '', onClick: self.handleClick.bind(self, i),key:d.orderNumber},
+
                 React.createElement(OrderCard,{key:d.orderNumber,data:d,
                     onClick: self.handleClick.bind(self, i),
                     onDetailsClick: self.handleDetailsClick.bind(self,i)})
@@ -28,7 +29,7 @@ render: function(){
     this.props.ordersList = ordersList  
     return (
   
-        React.createElement("div",null, ordersList )
+        React.createElement("div",{key:0}, ordersList )
       );
     }
 });

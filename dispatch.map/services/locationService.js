@@ -3,7 +3,7 @@
 var LocationService = {
 	
 	saveLocation: function(location,callback){
-			$.ajax({
+		$.ajax({
 			type: 'POST',
 			url: Config.url + 'Location/SetLocation',
 			dataType: 'json',
@@ -13,6 +13,17 @@ var LocationService = {
 			callback(data)
 		})
 
+	},
+	searchLocations: function(filter,callback){
+		$.ajax({
+			type: 'POST',
+			url: Config.url + 'Location/SearchLocations',
+			dataType: 'json',
+			data: filter,
+			
+		}).then(function(data){
+			callback(data.results)
+		})
 	}
 	
 	

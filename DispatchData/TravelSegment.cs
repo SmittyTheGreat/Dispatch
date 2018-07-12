@@ -38,11 +38,11 @@ namespace DispatchData
     
         public virtual Broker Broker { get; set; }
         public virtual Driver Driver { get; set; }
+        public virtual DriverSchedule DriverSchedule { get; set; }
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
         public virtual SegmentStatus SegmentStatus { get; set; }
         public virtual Vehicle Vehicle { get; set; }
-        public virtual DriverSchedule DriverSchedule { get; set; }
         public virtual VehicleSchedule VehicleSchedule { get; set; }
     }
 }

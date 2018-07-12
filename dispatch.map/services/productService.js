@@ -13,6 +13,17 @@ var ProductService = {
 			callback(data)
 		})
 
+	},
+	searchProducts: function(filter,callback){
+		$.ajax({
+			type: 'POST',
+			url: Config.url + 'Product/SearchProducts',
+			dataType: 'json',
+			data: filter,
+			
+		}).then(function(data){
+			callback(data.results)
+		})
 	}
 	
 	

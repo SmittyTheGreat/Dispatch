@@ -72,6 +72,20 @@
     <Compile Include="DriverSchedule.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessageText.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessageType.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessageRepository.cs" />
+    <Compile Include="PositionRepository.cs" />
+    <Compile Include="Position.cs">
+      <DependentUpon>DispatchEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ScheduleRepository.cs" />
     <Compile Include="SegmentActivity.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
@@ -79,6 +93,7 @@
     <Compile Include="VehicleSchedule.cs">
       <DependentUpon>DispatchEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserRepository.cs" />
     <Compile Include="VendorRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="BrokerRepository.cs" />

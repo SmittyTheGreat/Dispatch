@@ -73,6 +73,17 @@
     <Property Name="VendorId" Type="int" />
     <Property Name="IsRecurring" Type="int" />
   </EntityType>
+  <EntityType Name="Positions">
+    <Key>
+      <PropertyRef Name="PositionId" />
+    </Key>
+    <Property Name="PositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Lon" Type="float" />
+    <Property Name="PositionTime" Type="datetime" Precision="0" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="VehicleId" Type="int" />
+  </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="ProductId" />
@@ -169,7 +180,8 @@
     <Property Name="Version" Type="varchar" MaxLength="15" />
     <Property Name="CurrentLat" Type="float" />
     <Property Name="CurrentLon" Type="float" />
-    <Property Name="LastLocationTime" Type="float" />
+    <Property Name="LastLocationTime" Type="datetime" Precision="0" />
+    <Property Name="FirebaseToken" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Vehicles">
     <Key>
@@ -348,6 +360,30 @@
       </Principal>
       <Dependent Role="Orders">
         <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PositionUserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Positions" Type="Self.Positions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Positions">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PositionVehicleId">
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+    <End Role="Positions" Type="Self.Positions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicles">
+        <PropertyRef Name="VehicleId" />
+      </Principal>
+      <Dependent Role="Positions">
+        <PropertyRef Name="VehicleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -803,6 +839,7 @@
     <EntitySet Name="DriverSchedules" EntityType="Self.DriverSchedules" Schema="dispatch" store:Type="Tables" />
     <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dispatch" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dispatch" store:Type="Tables" />
+    <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dispatch" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dispatch" store:Type="Tables" />
     <EntitySet Name="SegmentActivitys" EntityType="Self.SegmentActivitys" Schema="dispatch" store:Type="Tables" />
     <EntitySet Name="SegmentStatuses" EntityType="Self.SegmentStatuses" Schema="dispatch" store:Type="Tables" />
@@ -857,6 +894,14 @@
     <AssociationSet Name="OrderVendorId" Association="Self.OrderVendorId">
       <End Role="Vendors" EntitySet="Vendors" />
       <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="PositionUserId" Association="Self.PositionUserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Positions" EntitySet="Positions" />
+    </AssociationSet>
+    <AssociationSet Name="PositionVehicleId" Association="Self.PositionVehicleId">
+      <End Role="Vehicles" EntitySet="Vehicles" />
+      <End Role="Positions" EntitySet="Positions" />
     </AssociationSet>
     <AssociationSet Name="ProductPickupLocationId" Association="Self.ProductPickupLocationId">
       <End Role="Locations" EntitySet="Locations" />

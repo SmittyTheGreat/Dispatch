@@ -54,18 +54,24 @@
     <Compile Include="Interfaces\IDriverService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IPositionService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\ISegmentService.cs" />
+    <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\IVehicleService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IVendorService.cs" />
     <Compile Include="Models\Broker.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Dispatcher.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\DriverSchedule.cs" />
+    <Compile Include="Models\MessageType.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\SearchOptions.cs" />
     <Compile Include="Models\SearchResults.cs" />
@@ -77,6 +83,7 @@
     <Compile Include="Models\VehicleSchedule.cs" />
     <Compile Include="Models\VehicleStatus.cs" />
     <Compile Include="Models\VehicleType.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -24,10 +24,13 @@ namespace DispatchAPI.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult SearchLocations(SearchOptions<Location> filter)
+        public IHttpActionResult SearchLocations(Location filter)
         {
-            var results = locationService.GetLocations(filter);
+            var theFilter = new SearchOptions<Location>(filter, 0, 10, "", false); 
+            var results = locationService.GetLocations(theFilter);
             return Ok(results);
+
+            
         }
 
         [HttpGet]

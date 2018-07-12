@@ -14,6 +14,13 @@ namespace DispatchData
     
     public partial class User
     {
+        public User()
+        {
+            this.Positions = new HashSet<Position>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
+        }
+    
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string HumanName { get; set; }
@@ -28,12 +35,16 @@ namespace DispatchData
         public string Version { get; set; }
         public Nullable<float> CurrentLat { get; set; }
         public Nullable<float> CurrentLon { get; set; }
-        public Nullable<float> LastLocationTime { get; set; }
+        public Nullable<System.DateTime> LastLocationTime { get; set; }
+        public string FirebaseToken { get; set; }
     
         public virtual Broker Broker { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Dispatcher Dispatcher { get; set; }
         public virtual Driver Driver { get; set; }
+        public virtual ICollection<Position> Positions { get; set; }
         public virtual Vendor Vendor { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Messages1 { get; set; }
     }
 }

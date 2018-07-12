@@ -24,9 +24,10 @@ namespace DispatchAPI.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult SearchProducts(SearchOptions<Product> filter)
+        public IHttpActionResult SearchProducts(Product filter)
         {
-            var results = productService.GetProducts(filter);
+            var theFilter = new SearchOptions<Product>(filter, 0, 10, "", false);
+            var results = productService.GetProducts(theFilter);
             return Ok(results);
         }
 

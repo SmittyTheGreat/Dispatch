@@ -53,7 +53,10 @@ render: function(){
     return (
         React.createElement("div", {className: 'pickupLocationWidgetWrapper'},
             React.createElement('div', {className:'orderEditPickupLocationRow'},
-                React.createElement('input',{className: 'orderPickupLocationInput',type:'text', value:self.state.location.Name})
+                React.createElement(LocationSearchWidget,{className: '',
+                    onFoundLocation:this.handleDestinationLocationFound,
+                    onSetLocation:this.handleSetLocation
+                })
             ),
             React.createElement("div", {className: 'pickupLocationWidgetHeader'},
                 React.createElement('label',{className:'none'},"Existing Destination"),

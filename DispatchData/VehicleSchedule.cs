@@ -28,7 +28,7 @@ namespace DispatchData
         public virtual Broker Broker { get; set; }
         public virtual Dispatcher Dispatcher { get; set; }
         public virtual ICollection<StandbySegment> StandbySegments { get; set; }
-        public virtual Vehicle Vehicle { get; set; }
         public virtual ICollection<TravelSegment> TravelSegments { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

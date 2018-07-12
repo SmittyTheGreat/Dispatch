@@ -18,11 +18,11 @@ namespace DispatchData
         {
             this.Dispatchers = new HashSet<Dispatcher>();
             this.Drivers = new HashSet<Driver>();
+            this.DriverSchedules = new HashSet<DriverSchedule>();
             this.TravelSegments = new HashSet<TravelSegment>();
             this.StandbySegments = new HashSet<StandbySegment>();
             this.Users = new HashSet<User>();
             this.Vehicles = new HashSet<Vehicle>();
-            this.DriverSchedules = new HashSet<DriverSchedule>();
             this.VehicleSchedules = new HashSet<VehicleSchedule>();
         }
     
@@ -33,11 +33,11 @@ namespace DispatchData
         public virtual Location Location { get; set; }
         public virtual ICollection<Dispatcher> Dispatchers { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
+        public virtual ICollection<DriverSchedule> DriverSchedules { get; set; }
         public virtual ICollection<TravelSegment> TravelSegments { get; set; }
         public virtual ICollection<StandbySegment> StandbySegments { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Vehicle> Vehicles { get; set; }
-        public virtual ICollection<DriverSchedule> DriverSchedules { get; set; }
         public virtual ICollection<VehicleSchedule> VehicleSchedules { get; set; }
     }
 }

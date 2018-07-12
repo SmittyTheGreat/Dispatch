@@ -1,7 +1,7 @@
 
 var OrderCard = React.createClass({displayName: "OrderCard",
 getInitialState: function(){   
-    return { data: this.props.data, routes:[], legDistance:0,legDistanceText:'',legDuration:0,legDurationText:'',selected:this.props.data.selected}
+    return { data: this.props.data, key:this.props.key, routes:[], legDistance:0,legDistanceText:'',legDuration:0,legDurationText:'',selected:this.props.data.selected}
 },
 componentDidMount: function(){
     var routeArray = [];
@@ -118,7 +118,7 @@ render: function(){
     var travelMode = this.state.travelMode;
     
     return (
-        React.createElement("div", {className: 'orderCardWrapper',onClick: self.handleClick}, 
+        React.createElement("div", {className: 'orderCardWrapper',key:this.state.key,onClick: self.handleClick}, 
             React.createElement('div', {className:'orderCardHeaderRow'},
                 React.createElement('span',{className:'orderCardOrderNumberWrapper'}, data.OrderNumber),
                 React.createElement('div',{className:'orderCardDistanceDurationWrapper'},
